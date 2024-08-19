@@ -3,7 +3,7 @@ import { Schema, model, Document } from 'mongoose';
 interface IUser extends Document {
     username: string;
     email: string;
-    password: string; // It's recommended to hash passwords
+    password: string; 
     favoriteGenres: string[];
     ratedBooks: { bookId: Schema.Types.ObjectId, rating: number }[];
 }
@@ -12,7 +12,7 @@ const userSchema = new Schema<IUser>({
     username: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    favoriteGenres: { type: [String], default: [] }, // Array of genres the user prefers
+    favoriteGenres: { type: [String], default: [] }, 
     ratedBooks: [
         {
             bookId: { type: Schema.Types.ObjectId, ref: 'Book' },
