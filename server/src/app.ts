@@ -1,26 +1,16 @@
 import "dotenv/config";
 import express, { Request, Response, NextFunction } from "express";
 import UserModel from "./models/user";
-import BookModel from "./models/book"; // Assuming you have this model
-import RecommendationModel from "./models/recommendation"; // Assuming you have this model
+import bookRoutes from "./routes/bookRoutes";
+
 
 const app = express();
 
 // Middleware to parse JSON bodies
 app.use(express.json());
 
-// Simple logger middleware
-app.use((req: Request, res: Response, next: NextFunction) => {
-    console.log(`${req.method} ${req.path}`);
-    next();
-});
-
-// Error-handling middleware
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    console.error(err.stack);
-    res.status(500).json({ error: err.message });
-});
+// Routes
+app.use('/api/books', bookRoutes);
 
 // Route: Get all users
 app.get("/users", async (req: Request, res: Response, next: NextFunction) => {
@@ -31,30 +21,20 @@ app.get("/users", async (req: Request, res: Response, next: NextFunction) => {
         next(err);
     }
 });
-
-// Route: Get all books
-app.get("/books", async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const books = await BookModel.find().exec();
-        res.status(200).json(books);
-    } catch (err) {
-        next(err);
-    }
+// Simple logger middleware
+app.use((req: Request, res: Response, next: NextFunction) => {
+    next();
 });
 
-// Route: Get recommendations for a user
-app.get("/recommendations/:userId", async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const { userId } = req.params;
-        const recommendations = await RecommendationModel.findOne({ userId }).exec();
-        if (!recommendations) {
-            return res.status(404).json({ message: "No recommendations found for this user." });
-        }
-        res.status(200).json(recommendations);
-    } catch (err) {
-        next(err);
-    }
+// Error-handling middleware
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((error: unknown, req: Request, res: Response, next: NextFunction) => {
+    console.error(error);
+    let errorMessage = "An unknown error occurred";
+    if (error instanceof Error) errorMessage = error.message;
+    res.status(500).json({ error: errorMessage });
 });
+
 
 // Fallback route for 404
 app.use((req: Request, res: Response) => {
