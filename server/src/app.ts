@@ -1,6 +1,6 @@
 import "dotenv/config";
 import express, { Request, Response, NextFunction } from "express";
-import UserModel from "./models/user";
+import UserRoutes from "./routes/userRoutes";
 import bookRoutes from "./routes/bookRoutes";
 
 
@@ -11,16 +11,8 @@ app.use(express.json());
 
 // Routes
 app.use('/api/books', bookRoutes);
+app.use('/api/users', UserRoutes);
 
-// Route: Get all users
-app.get("/users", async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const users = await UserModel.find().exec();
-        res.status(200).json(users);
-    } catch (err) {
-        next(err);
-    }
-});
 // Simple logger middleware
 app.use((req: Request, res: Response, next: NextFunction) => {
     next();
