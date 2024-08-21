@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import Book from '../models/book';
+import createHttpError from 'http-errors';
+import mongoose from 'mongoose';
 
 export const createBook = async (req: Request, res: Response) => {
     try {
@@ -21,12 +23,16 @@ export const getAllBooks = async (req: Request, res: Response) => {
 };
 
 export const getBookById = async (req: Request, res: Response) => {
+    const bookId = req.params.id;
     try {
+        if (!mongoose.isValidObjectId(bookId)) {
+            throw createHttpError(400, 'Invalid book ID');
+        }
         const book = await Book.findById(req.params.id);
         if (book) {
             res.json(book);
         } else {
-            res.status(404).json({ message: 'Book not found' });
+            throw createHttpError(404, 'Book not found');
         }
     } catch (error: any) {
         res.status(500).json({ message: error.message });

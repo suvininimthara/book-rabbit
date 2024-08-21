@@ -1,5 +1,7 @@
-import { Request, Response } from 'express';
+import { Request, RequestHandler, Response } from 'express';
 import User from '../models/user';
+import createHttpError from 'http-errors';
+import mongoose from 'mongoose';
 
 export const createUser = async (req: Request, res: Response) => {
     try {
@@ -21,12 +23,16 @@ export const getAllUsers = async (req: Request, res: Response) => {
 };
 
 export const getUserById = async (req: Request, res: Response) => {
+    const userId = req.params.id;
     try {
+        if (!mongoose.isValidObjectId(userId)) {
+            throw createHttpError(400, 'Invalid user ID');
+        }
         const user = await User.findById(req.params.id);
         if (user) {
             res.json(user);
         } else {
-            res.status(404).json({ message: 'User not found' });
+            throw createHttpError(404, 'User not found');
         }
     } catch (error: any) {
         res.status(500).json({ message: error.message });
@@ -39,7 +45,7 @@ export const updateUser = async (req: Request, res: Response) => {
         if (user) {
             res.json(user);
         } else {
-            res.status(404).json({ message: 'User not found' });
+            throw createHttpError(404, 'User not found');
         }
     } catch (error: any) {
         res.status(400).json({ message: error.message });
@@ -52,7 +58,7 @@ export const deleteUser = async (req: Request, res: Response) => {
         if (user) {
             res.json({ message: 'User deleted' });
         } else {
-            res.status(404).json({ message: 'User not found' });
+            throw createHttpError(404, 'User not found');
         }
     } catch (error: any) {
         res.status(500).json({ message: error.message });

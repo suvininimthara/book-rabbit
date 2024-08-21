@@ -4,8 +4,13 @@ import UserRoutes from "./routes/userRoutes";
 import bookRoutes from "./routes/bookRoutes";
 import recommendationRoutes from "./routes/recommendationRoutes";
 import mongoose from "mongoose";
+import morgan from "morgan";
+import createHttpError, {isHttpError} from "http-errors";
 
 const app = express();
+
+// Middleware to log requests
+app.use(morgan("dev"));
 
 // Middleware to parse JSON bodies
 app.use(express.json());
@@ -17,7 +22,7 @@ app.use('/recommendations', recommendationRoutes);
 
 // Simple logger middleware
 app.use((req: Request, res: Response, next: NextFunction) => {
-    next();
+    next(createHttpError(404, "Route not found"));
 });
 
 // Error-handling middleware
@@ -25,8 +30,13 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use((error: unknown, req: Request, res: Response, next: NextFunction) => {
     console.error(error);
     let errorMessage = "An unknown error occurred";
-    if (error instanceof Error) errorMessage = error.message;
-    res.status(500).json({ error: errorMessage });
+    let statusCode = 500;
+    if (isHttpError(error)) {
+        errorMessage = error.message;
+        statusCode = error.status;
+    }
+
+    res.status(statusCode).json({ error: errorMessage });
 });
 
 // Connect to MongoDB
@@ -37,7 +47,7 @@ mongoose.connect(process.env.MONGO_CONNECTION_STRING as string)
     .catch((error) => {
         console.log("Error connecting to MongoDB", error);
     });
-    
+
 // Fallback route for 404
 app.use((req: Request, res: Response) => {
     res.status(404).json({ message: "Route not found" });
