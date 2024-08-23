@@ -3,6 +3,7 @@ import HeaderComponent from '../components/HeaderComponent';
 import BookCardComponent from '../components/BookCardComponent';
 import CategoryCardComponent from '../components/CategoryCardComponent';
 import ContributorCardComponent from '../components/ContributorCardComponent';
+import FeedbackComponent from '../components/FeedbackComponent';
 import Footer from '../components/FooterComponent';
 
 const HomePage: React.FC = () => {
@@ -31,6 +32,11 @@ const HomePage: React.FC = () => {
                     <ContributorCardComponent name= "Mr. Saman Perera" contribution= "Author" />
                     <ContributorCardComponent name= "Mr. Saman Perera" contribution= "Author" />
                 </div>
+            </section>
+            <section className="container my-5">
+                <h2>Customer Feedback</h2>
+                <FeedbackComponent feedback="Great platform!" user="User One" />
+                <FeedbackComponent feedback="Amazing book selection!" user="User Two" />
             </section>
 
 
