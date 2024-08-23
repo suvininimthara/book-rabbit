@@ -12,7 +12,7 @@ const Header: React.FC = () => {
         <Container>
           <Navbar.Brand href="/" className="navbar-brand-custom">
             <img
-              src="logo.png"
+              src="logo 3.png"
               alt="Logo"
               style={{ height: '40px', marginRight: '10px' }}
             />
