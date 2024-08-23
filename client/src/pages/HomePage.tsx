@@ -1,5 +1,6 @@
 import React from 'react';
 import HeaderComponent from '../components/HeaderComponent';
+import HeroSection from '../components/HeroSection';
 import BookCardComponent from '../components/BookCardComponent';
 import CategoryCardComponent from '../components/CategoryCardComponent';
 import ContributorCardComponent from '../components/ContributorCardComponent';
@@ -10,6 +11,7 @@ const HomePage: React.FC = () => {
     return (
         <div>
             <HeaderComponent />
+            <HeroSection />
 
             <section className="container my-5">
                 <h2>Recent Book</h2>
