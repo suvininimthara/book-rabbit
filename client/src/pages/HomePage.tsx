@@ -1,8 +1,9 @@
 import React from 'react';
 import HeaderComponent from '../components/HeaderComponent';
 import BookCardComponent from '../components/BookCardComponent';
-import Footer from '../components/FooterComponent';
 import CategoryCardComponent from '../components/CategoryCardComponent';
+import ContributorCardComponent from '../components/ContributorCardComponent';
+import Footer from '../components/FooterComponent';
 
 const HomePage: React.FC = () => {
     return (
@@ -22,6 +23,13 @@ const HomePage: React.FC = () => {
                 <div className="d-flex justify-content-around">
                     <CategoryCardComponent category="Fiction" description="Explore fictional worlds." />
                     <CategoryCardComponent category="Thriller" description="Learn from reality." />
+                </div>
+            </section>
+            <section className="container my-5">
+                <h2>Top Categories</h2>
+                <div className="d-flex justify-content-around">
+                    <ContributorCardComponent name= "Mr. Saman Perera" contribution= "Author" />
+                    <ContributorCardComponent name= "Mr. Saman Perera" contribution= "Author" />
                 </div>
             </section>
 
