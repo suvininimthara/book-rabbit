@@ -1,0 +1,73 @@
+/* BookCard.css */
+
+.book-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 16px; /* Space between the cards */
+    padding: 16px;
+  }
+  
+  .book-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    width: 200px; /* Adjusted for 4 cards per row */
+    max-width: calc(20% - 16px); /* Ensures the cards don't grow larger than desired */
+    box-sizing: border-box;
+    margin-bottom: 16px;
+    position: relative; /* To allow absolute positioning of the wishlist icon */
+  }
+  
+  .book-card:hover {
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .book-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+  
+  .book-title {
+    font-size: large;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  
+  .book-rating {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Space out the rating and wishlist icon */
+    margin-bottom: 8px;
+    margin-right: 4px;
+  }
+  
+  .book-rating span {
+    color: #888;
+    margin-left: 4px;
+  }
+  .book-rating .fa-star {
+    margin-right: 2px; /* Adjust the value as needed for spacing */
+  }
+  
+  .wishlist-icon {
+    font-size: 15px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    color: #888;
+    top: 16px;
+    right: 16px;
+  }
+  
+  .wishlist-icon.red {
+    color: red;
+  }
+  .bg-light {
+    width: 100%;
+    background-color: #f8f9fa !important;
+  }
+  

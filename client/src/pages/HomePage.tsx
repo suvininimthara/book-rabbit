@@ -15,11 +15,13 @@ const HomePage: React.FC = () => {
 
             <section className="container my-5">
                 <h2>Recent Book</h2>
-                <div className="d-flex justify-content-around">
-                    <BookCardComponent title="Book One" author="Author One" rating={4.5} />
-                    <BookCardComponent title="Book Two" author="Author Two" rating={4.0} />
-                    <BookCardComponent title="Book Three" author="Author Three" rating={3.5} />
-                </div>
+            <div className="book-card-container">
+            <BookCardComponent title="Sirith Maldama" imageUrl="bookimage.png" rating={4} reviews={88}/>
+            <BookCardComponent title="Sirith Maldama" imageUrl="bookimage.png" rating={4} reviews={88}/>
+            <BookCardComponent title="Sirith Maldama" imageUrl="bookimage.png" rating={4} reviews={88}/>
+            <BookCardComponent title="Sirith Maldama" imageUrl="bookimage.png" rating={4} reviews={88}/>
+            <BookCardComponent title="Sirith Maldama" imageUrl="bookimage.png" rating={4} reviews={88}/>
+            </div>
             </section>
             <section className="container my-5">
                 <h2>Top Categories</h2>
