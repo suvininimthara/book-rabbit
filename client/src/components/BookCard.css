@@ -31,8 +31,8 @@
 }
 
 .book-title {
-  font-size: large;
-  font-weight: 500;
+  font-size: s;
+  font-weight: bold;
   margin-bottom: 8px;
 }
 

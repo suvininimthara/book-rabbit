@@ -6,6 +6,9 @@ import CategoryCardComponent from '../components/CategoryCardComponent';
 import ContributorCardComponent from '../components/ContributorCardComponent';
 import FeedbackComponent from '../components/FeedbackComponent';
 import Footer from '../components/FooterComponent';
+import { Button } from 'react-bootstrap'; // Import the Button component from the appropriate module
+import '../App.css';
+
 
 const HomePage: React.FC = () => {
     return (
@@ -14,13 +17,27 @@ const HomePage: React.FC = () => {
             <HeroSection />
 
             <section className="container my-5">
-                <h2>Recent Book</h2>
+                <h3>Recent Book</h3>
+                <h6>Recently added books to our library</h6>
             <div className="book-card-container">
             <BookCardComponent title="Sirith Maldama" imageUrl="bookimage.png" rating={4} reviews={88}/>
             <BookCardComponent title="Sirith Maldama" imageUrl="bookimage.png" rating={4} reviews={88}/>
             <BookCardComponent title="Sirith Maldama" imageUrl="bookimage.png" rating={4} reviews={88}/>
             <BookCardComponent title="Sirith Maldama" imageUrl="bookimage.png" rating={4} reviews={88}/>
+            <BookCardComponent title="Sirith Maldama" imageUrl="bookimage.png" rating={4} reviews={88}/></div>
+            <div className='mx-auto text-center'><Button variant="outline-light" className="ms-2" style={{color:'#1bb39e ', border: '1px solid #1bb39e'}}>Browes All</Button>
+            </div>
+            </section>
+            <section className="container my-5">
+                <h4>Top Rated</h4>
+                <h6>Top rated books by our users</h6>
+            <div className="book-card-container">
             <BookCardComponent title="Sirith Maldama" imageUrl="bookimage.png" rating={4} reviews={88}/>
+            <BookCardComponent title="Sirith Maldama" imageUrl="bookimage.png" rating={4} reviews={88}/>
+            <BookCardComponent title="Sirith Maldama" imageUrl="bookimage.png" rating={4} reviews={88}/>
+            <BookCardComponent title="Sirith Maldama" imageUrl="bookimage.png" rating={4} reviews={88}/>
+            <BookCardComponent title="Sirith Maldama" imageUrl="bookimage.png" rating={4} reviews={88}/></div>
+            <div className='mx-auto text-center'><Button variant="outline-light" className="ms-2" style={{color:'#1bb39e ', border: '1px solid #1bb39e'}}>Browes All</Button>
             </div>
             </section>
             <section className="container my-5">
