@@ -1,23 +1,19 @@
-import React, { useState } from 'react';
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
 import { Button } from 'react-bootstrap';
 
-function App() {
-  const [clickcount, setCount] = useState(0);
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          subscribe to <code>src/App.tsx</code> and save to reload.
-        </p>
-          <Button onClick={() => setCount(clickcount + 1)}>
-            Click {clickcount} me
-          </Button> 
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
