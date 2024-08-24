@@ -9,5 +9,7 @@ router.post('/login', UserController.login);
 
 router.get('/', UserController.getAuthenticatedUser);
 
+router.post('/logout', UserController.logout);
+
 
 export default router;

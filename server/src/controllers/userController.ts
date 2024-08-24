@@ -62,7 +62,7 @@ export const signUp: RequestHandler<unknown, unknown, SignUpBody, unknown> = asy
             password: passwordHashed,
         });
 
-        req.session.userId = newUser._id;
+        req.session.userId = newUser._id as mongoose.Types.ObjectId;
 
         res.status(201).json(newUser);
     } catch (error) {
@@ -96,11 +96,22 @@ export const login: RequestHandler<unknown, unknown, LoginBody, unknown> = async
             throw createHttpError(401, "Invalid credentials");
         }
 
-        req.session.userId = user._id;
+        req.session.userId = user._id as mongoose.Types.ObjectId;
         res.status(201).json(user);
     } catch (error) {
         next(error);
     }
+};
+
+
+export const logout: RequestHandler = (req, res, next) => {
+    req.session.destroy(error => {
+        if (error) {
+            next(error);
+        } else {
+            res.sendStatus(200);
+        }
+    });
 };
 
 
