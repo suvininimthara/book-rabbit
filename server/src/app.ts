@@ -23,14 +23,12 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        secure: false,
-        httpOnly: true,
-        maxAge: 1000 * 60 * 60  // 1 hour 
+        maxAge: 60 * 60 * 1000, // 1 hour
     },
     rolling: true,
-    store: MongoStore.create({ 
-        mongoUrl: env.MONGO_CONNECTION_STRING }),
-
+    store: MongoStore.create({
+        mongoUrl: env.MONGO_CONNECTION_STRING
+    }),
 }));
 
 // Routes
