@@ -1,7 +1,58 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, RequestHandler, Response } from 'express';
 import User from '../models/user';
 import createHttpError from 'http-errors';
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
+
+
+
+interface SignUpBody {
+    username?: string,
+    email?: string,
+    password?: string,
+}
+
+
+export const signUp: RequestHandler<unknown, unknown, SignUpBody, unknown> = async (req, res, next) => {
+    const username = req.body.username;
+    const email = req.body.email;
+    const passwordRaw = req.body.password;
+
+    try {
+        if (!username || !email || !passwordRaw) {
+            throw createHttpError(400, "Parameters missing");
+        }
+
+        const existingUsername = await User.findOne({ username: username }).exec();
+
+        if (existingUsername) {
+            throw createHttpError(409, "Username already taken. Please choose a different one or log in instead.");
+        }
+
+        const existingEmail = await User.findOne({ email: email }).exec();
+
+        if (existingEmail) {
+            throw createHttpError(409, "A user with this email address already exists. Please log in instead.");
+        }
+
+        const passwordHashed = await bcrypt.hash(passwordRaw, 10);
+
+        const newUser = await User.create({
+            username: username,
+            email: email,
+            password: passwordHashed,
+        });
+
+        req.session.userId = newUser._id as mongoose.Types.ObjectId;
+
+        res.status(201).json(newUser);
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 
 export const createUser = async (req: Request, res: Response) => {
     try {

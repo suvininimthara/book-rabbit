@@ -6,6 +6,9 @@ import recommendationRoutes from "./routes/recommendationRoutes";
 import mongoose from "mongoose";
 import morgan from "morgan";
 import createHttpError, {isHttpError} from "http-errors";
+import session from "express-session";
+import env from "./util/validateEnv";
+import MongoStore from "connect-mongo";
 
 const app = express();
 
@@ -14,6 +17,21 @@ app.use(morgan("dev"));
 
 // Middleware to parse JSON bodies
 app.use(express.json());
+
+app.use(session({
+    secret: env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: false,
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60  // 1 hour 
+    },
+    rolling: true,
+    store: MongoStore.create({ 
+        mongoUrl: env.MONGO_CONNECTION_STRING }),
+
+}));
 
 // Routes
 app.use('/api/books', bookRoutes);
