@@ -5,7 +5,25 @@ import createHttpError from 'http-errors';
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
+export const getAuthenticatedUser: RequestHandler = async (req, res, next) => {
+    const authenticateUser = req.session.userId;
 
+    try {
+        if (!authenticateUser) {
+            throw createHttpError(401, 'User not authenticated');
+        }
+
+        const user = await User.findById(authenticateUser).exec();
+
+        if (!user) {
+            throw createHttpError(404, 'User not found');
+        }
+
+        res.json(user);
+    } catch (error) {
+        next(error);
+    }
+};
 
 interface SignUpBody {
     username?: string,
@@ -44,7 +62,7 @@ export const signUp: RequestHandler<unknown, unknown, SignUpBody, unknown> = asy
             password: passwordHashed,
         });
 
-        req.session.userId = newUser._id as mongoose.Types.ObjectId;
+        req.session.userId = newUser._id;
 
         res.status(201).json(newUser);
     } catch (error) {
@@ -78,7 +96,7 @@ export const login: RequestHandler<unknown, unknown, LoginBody, unknown> = async
             throw createHttpError(401, "Invalid credentials");
         }
 
-        req.session.userId = user._id as mongoose.Types.ObjectId;
+        req.session.userId = user._id;
         res.status(201).json(user);
     } catch (error) {
         next(error);
