@@ -1,60 +1,68 @@
 import "dotenv/config";
 import express, { Request, Response, NextFunction } from "express";
-import UserModel from "./models/user";
-import BookModel from "./models/book"; // Assuming you have this model
-import RecommendationModel from "./models/recommendation"; // Assuming you have this model
+import UserRoutes from "./routes/userRoutes";
+import bookRoutes from "./routes/bookRoutes";
+import recommendationRoutes from "./routes/recommendationRoutes";
+import mongoose from "mongoose";
+import morgan from "morgan";
+import createHttpError, {isHttpError} from "http-errors";
+import session from "express-session";
+import env from "./util/validateEnv";
+import MongoStore from "connect-mongo";
 
 const app = express();
+
+// Middleware to log requests
+app.use(morgan("dev"));
 
 // Middleware to parse JSON bodies
 app.use(express.json());
 
+app.use(session({
+    secret: env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 60 * 60 * 1000, // 1 hour
+    },
+    rolling: true,
+    store: MongoStore.create({
+        mongoUrl: env.MONGO_CONNECTION_STRING
+    }),
+}));
+
+// Routes
+app.use('/api/books', bookRoutes);
+app.use('/api/users', UserRoutes);
+app.use('/recommendations', recommendationRoutes);
+
 // Simple logger middleware
 app.use((req: Request, res: Response, next: NextFunction) => {
-    console.log(`${req.method} ${req.path}`);
-    next();
+    next(createHttpError(404, "Route not found"));
 });
 
 // Error-handling middleware
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    console.error(err.stack);
-    res.status(500).json({ error: err.message });
+app.use((error: unknown, req: Request, res: Response, next: NextFunction) => {
+    console.error(error);
+    let errorMessage = "An unknown error occurred";
+    let statusCode = 500;
+    if (isHttpError(error)) {
+        errorMessage = error.message;
+        statusCode = error.status;
+    }
+
+    res.status(statusCode).json({ error: errorMessage });
 });
 
-// Route: Get all users
-app.get("/users", async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const users = await UserModel.find().exec();
-        res.status(200).json(users);
-    } catch (err) {
-        next(err);
-    }
-});
-
-// Route: Get all books
-app.get("/books", async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const books = await BookModel.find().exec();
-        res.status(200).json(books);
-    } catch (err) {
-        next(err);
-    }
-});
-
-// Route: Get recommendations for a user
-app.get("/recommendations/:userId", async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const { userId } = req.params;
-        const recommendations = await RecommendationModel.findOne({ userId }).exec();
-        if (!recommendations) {
-            return res.status(404).json({ message: "No recommendations found for this user." });
-        }
-        res.status(200).json(recommendations);
-    } catch (err) {
-        next(err);
-    }
-});
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_CONNECTION_STRING as string)
+    .then(() => {
+        console.log("Connected to MongoDB");
+    })
+    .catch((error) => {
+        console.log("Error connecting to MongoDB", error);
+    });
 
 // Fallback route for 404
 app.use((req: Request, res: Response) => {
