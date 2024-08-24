@@ -1,15 +1,14 @@
 
 import { useState } from 'react';
-import { FormControl, InputGroup } from 'react-bootstrap';
+import { FormControl, InputGroup } from 'react-bootstrap'; // Importing Bootstrap components
 
 
 const Search = () => {
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState('');// Search term entered by user
 
-    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchTerm(e.target.value);
+    const handleSearch = (e: React.FormEvent<FormControl>) =>{
+        setSearchTerm((e.target as HTMLInputElement).value); // Access to the value
     }
-
     return (
         <InputGroup className="mb-3">
             <FormControl
