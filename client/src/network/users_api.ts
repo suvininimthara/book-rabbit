@@ -50,3 +50,17 @@ export async function login(credentials: LoginCredentials): Promise<User> {
 export async function logout(): Promise<void> {
     await fetchData('/api/users/logout', {method: 'POST', credentials: 'include'});
 }
+
+export interface UserInput {
+    username: string;
+    email: string;
+    password: string;
+}
+
+export function updateUser(_id: string, data: UserInput): User | PromiseLike<User> {
+    throw new Error("Function not implemented.");
+}
+export function createUser(data: UserInput): User | PromiseLike<User> {
+    throw new Error("Function not implemented.");
+}
+
