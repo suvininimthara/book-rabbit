@@ -2,8 +2,17 @@ import React, { useState } from 'react';
 import { Container, Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 import { FaSearch, FaUserCircle } from 'react-icons/fa';
 import './header.css';
+import { User } from '../models/userModel';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  loggedInUser: User | null;
+  onSignUpClicked: () => void;
+  onLoginClicked: () => void;
+  onLogoutClicked: () => void;
+}
+
+const Header= ({ loggedInUser, onSignUpClicked, onLoginClicked, onLogoutClicked }: HeaderProps) => {
+  
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Simulate login state
 

@@ -68,7 +68,7 @@ const LoginModal = ({onDismiss, onLoginSuccessful}: LoginModalProps) => {
                         disabled={isSubmitting}
                         className="varient"
                     >
-                        Loging
+                        Login
                     </Button>
                 </Form>
             </Modal.Body>

@@ -1,11 +1,9 @@
 import React from 'react';
-import HeaderComponent from '../components/HeaderComponent';
 import HeroSection from '../components/HeroSection';
 import BookCardComponent from '../components/BookCardComponent';
 import CategoryCardComponent from '../components/CategoryCardComponent';
 import ContributorCardComponent from '../components/ContributorCardComponent';
 import FeedbackComponent from '../components/FeedbackComponent';
-import Footer from '../components/FooterComponent';
 import { Button } from 'react-bootstrap'; // Import the Button component from the appropriate module
 import '../App.css';
 
@@ -13,7 +11,6 @@ import '../App.css';
 const HomePage: React.FC = () => {
     return (
         <div>
-            <HeaderComponent />
             <HeroSection />
 
             <section className="container my-5">
@@ -61,8 +58,7 @@ const HomePage: React.FC = () => {
             </section>
 
 
-            <Footer />
-            
+           
         </div>
 
     );
