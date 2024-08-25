@@ -1,42 +1,40 @@
-import {useForm} from "react-hook-form";
 import { User } from "../models/userModel";
-import { SignUpCredentials } from "../network/users_api";
 import * as UsersApi from "../network/users_api";
+import { LoginCredentials } from "../network/users_api";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
 import TextInputField from "./form/TextInputField";
 import { useState } from "react";
-import { ConflictError } from "../errors/http_errors";
+import { useForm } from "react-hook-form";
+import { UnauthorizedError } from "../errors/http_errors";
 
-interface SignUpModelProps {
+interface LoginModalProps {
     onDismiss: () => void;
-    onSignUpSuccessful:(user: User) => void;    
+    onLoginSuccessful:(user: User) => void;
 }
 
-const SignUpModal: React.FC<SignUpModelProps> = ({onDismiss, onSignUpSuccessful}) => {
+const LoginModal = ({onDismiss, onLoginSuccessful}: LoginModalProps) => {
     const [errorText, setErrorText] = useState<string | null>(null);
 
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<SignUpCredentials>();
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginCredentials & { username?: string }>();
 
-    async function onSubmit(credentials: SignUpCredentials) {
+    async function onSubmit(credentials: LoginCredentials) {
         try {
-            const newUser = await UsersApi.signUp(credentials);
-            onSignUpSuccessful(newUser);
-        } catch (error: any) {
-            if (error instanceof ConflictError) {
+            const user = await UsersApi.login(credentials);
+            onLoginSuccessful(user);
+        } catch (error) {
+            if (error instanceof UnauthorizedError) {
                 setErrorText(error.message);
-            }else{
+            } else {
                 alert(error);
             }
             console.error(error);
         }
     }
-
-
     return (
         <Modal show onHide={onDismiss}>
             <Modal.Header closeButton>
                 <Modal.Title>
-                    Sign Up
+                    Login
                 </Modal.Title>
             </Modal.Header>
 
@@ -57,15 +55,6 @@ const SignUpModal: React.FC<SignUpModelProps> = ({onDismiss, onSignUpSuccessful}
                         error={errors.username}
                     />
                     <TextInputField
-                        name="email"
-                        label="Email"
-                        type="email"
-                        placeholder="Email"
-                        register={register}
-                        registerOptions={{ required: "Required" }}
-                        error={errors.email}
-                    />
-                    <TextInputField
                         name="password"
                         label="Password"
                         type="password"
@@ -79,13 +68,12 @@ const SignUpModal: React.FC<SignUpModelProps> = ({onDismiss, onSignUpSuccessful}
                         disabled={isSubmitting}
                         className="varient"
                     >
-                        Sign Up
+                        Loging
                     </Button>
                 </Form>
             </Modal.Body>
-
         </Modal>
     );
 }
 
-export default SignUpModal;
+export default LoginModal;
