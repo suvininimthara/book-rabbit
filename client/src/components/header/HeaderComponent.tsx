@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import { Container, Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
-import { FaSearch, FaUserCircle } from 'react-icons/fa';
+import { FaSearch} from 'react-icons/fa';
 import './header.css';
-import { User } from '../models/userModel';
+import { User } from '../../models/userModel';
+import HeaderLoggedInView from './HeaderLoggedInView';
+import HeaderLoggedOutView from './HeaderLoggedOutView';
 
 interface HeaderProps {
-  loggedInUser: User | null;
-  onSignUpClicked: () => void;
-  onLoginClicked: () => void;
-  onLogoutClicked: () => void;
+    loggedInUser: User | null,
+    onSignUpClicked: () => void,
+    onLoginClicked: () => void,
+    onLogoutSuccessful: () => void,
 }
 
-const Header= ({ loggedInUser, onSignUpClicked, onLoginClicked, onLogoutClicked }: HeaderProps) => {
+const Header= ({ loggedInUser, onSignUpClicked, onLoginClicked, onLogoutSuccessful }: HeaderProps) => {
   
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Simulate login state
@@ -47,16 +49,11 @@ const Header= ({ loggedInUser, onSignUpClicked, onLoginClicked, onLogoutClicked 
                 <FaSearch />
               </Button>
             </Form>
-            <Nav>
-              {isLoggedIn ? (
-                <FaUserCircle className="profile-icon" />
-              ) : (
-                <>
-                <p> </p>
-                <Nav.Link href="/" className="nav-link-custom"><Button variant="light" className="ms-2">Login</Button>
-                </Nav.Link> <Nav.Link href="/" className="nav-link-custom"><Button variant="outline-light" className="ms-2">Sign Up</Button>
-                </Nav.Link></>
-              )}
+            <Nav className="ms-auto">
+                        {loggedInUser
+                            ? <HeaderLoggedInView user={loggedInUser} onLogoutSuccessful={onLogoutSuccessful} />
+                            : <HeaderLoggedOutView onLoginClicked={onLoginClicked} onSignUpClicked={onSignUpClicked} />
+                        }
             </Nav>
           </Navbar.Collapse>
         </Container>

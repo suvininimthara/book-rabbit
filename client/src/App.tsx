@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
 import { User } from './models/userModel';
-import Header from './components/HeaderComponent';
+import Header from './components/header/HeaderComponent';
 import Footer from './components/FooterComponent';
 
 
@@ -15,12 +15,10 @@ const App: React.FC = () => {
   return (
     <Router>
       <Header loggedInUser={null} onSignUpClicked={function (): void {
-        throw new Error('Function not implemented.');
       } } onLoginClicked={function (): void {
-        throw new Error('Function not implemented.');
-      } } onLogoutClicked={function (): void {
-        throw new Error('Function not implemented.');
+      } } onLogoutSuccessful={function (): void {
       } } />
+        
 
       <Routes>
         <Route path="/" element={<HomePage />} />

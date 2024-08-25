@@ -53,6 +53,27 @@
   color: white;
 }
 
+.btn {
+  background-color: #1bb39e;
+  border: 1px solid white;
+  color: white;
+  
+}
+.btn:hover {
+  background-color: white;
+  color: #1bb39e;
+  border: 1px solid #1bb39e;
+}
+
+.btn-outline {
+  background-color: white;
+  color: #1bb39e;
+}
+.btn-outline:hover {
+  background-color: #1bb39e;
+  color: white;
+  border:1px solid white;
+}
 .profile-icon {
   color: white;
   font-size: 24px;
