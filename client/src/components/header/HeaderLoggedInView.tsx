@@ -24,7 +24,7 @@ const HeaderLoggedInView = ({ user, onLogoutSuccessful }: HeaderLoggedInViewProp
     return (
         <>
             <Navbar.Text className="me-2">
-            <FaUserCircle className="profile-icon" />
+            <FaUserCircle className="profile-icon" style={{ height: '1em',width:'1em', marginRight: '10px' }} />
             </Navbar.Text>
             <Button onClick={logout} className="btn-outline-teal">Log out</Button>
         </>

@@ -30,23 +30,13 @@ const Header= ({ loggedInUser, onSignUpClicked, onLoginClicked, onLogoutSuccessf
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
+            <Nav className="d-flex justify-content-center">
               <Nav.Link href="/" className="nav-link-custom">Home</Nav.Link>
               <Nav.Link href="/products" className="nav-link-custom">Books</Nav.Link>
               <Nav.Link href="/mega-menu" className="nav-link-custom">About</Nav.Link>
               <Nav.Link href="/contact" className="nav-link-custom">Contact</Nav.Link>
             </Nav>
-            <Form className="d-flex">
-              <FormControl
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
-              />
-              <Button variant="outline-teal">
-                <FaSearch />
-              </Button>
-            </Form>
+            
             <Nav className="ms-auto">
                         {loggedInUser
                             ? <HeaderLoggedInView user={loggedInUser} onLogoutSuccessful={onLogoutSuccessful} />

@@ -9,7 +9,7 @@ interface HeaderLoggedOutViewProps {
 const HeaderLoggedOutView = ({ onSignUpClicked, onLoginClicked }: HeaderLoggedOutViewProps) => {
     return (
         <><div className="header-logged-out-view">
-            <Button onClick={onLoginClicked} className="btn-outline">Log In</Button> 
+            <Button onClick={onLoginClicked} className="btn-outline" style={{ marginRight: '10px' }}>Log In</Button> 
             <Button onClick={onSignUpClicked} className="btn">Sign Up</Button>
             </div>
         </>
