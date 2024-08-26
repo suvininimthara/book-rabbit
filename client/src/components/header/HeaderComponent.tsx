@@ -5,6 +5,7 @@ import './header.css';
 import { User } from '../../models/userModel';
 import HeaderLoggedInView from './HeaderLoggedInView';
 import HeaderLoggedOutView from './HeaderLoggedOutView';
+import logo from './logo 3.png';
 
 interface HeaderProps {
     loggedInUser: User | null,
@@ -14,17 +15,14 @@ interface HeaderProps {
 }
 
 const Header= ({ loggedInUser, onSignUpClicked, onLoginClicked, onLogoutSuccessful }: HeaderProps) => {
-  
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Simulate login state
-
+ 
   return (
     <header>
       <Navbar expand="lg" className="navbar-custom">
         <Container>
           <Navbar.Brand href="/" className="navbar-brand-custom">
             <img
-              src="logo 3.png"
+              src={logo}
               alt="Logo"
               style={{ height: '40px', marginRight: '10px' }}
             />
