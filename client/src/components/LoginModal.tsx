@@ -6,7 +6,8 @@ import * as UsersApi from "../network/users_api";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
 import TextInputField from "./form/TextInputField";
 import { UnauthorizedError } from "../errors/http_errors";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './modalStyles.css';
 interface LoginModalProps {
   onDismiss: () => void;
   onLoginSuccessful: (user: User) => void;
@@ -33,12 +34,13 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, onLoginSuccessful, o
 
   return (
     <Modal show onHide={onDismiss} centered>
-      <Modal.Header closeButton>
-        <div>
-        <p><img src="/logo.png" alt="logo" className="logo" style={{ height: '40px', marginRight: '10px', alignContent:'center' }}/></p>
-        <Modal.Title className="ext-center">Login</Modal.Title></div>
-      </Modal.Header>
-      <Modal.Body>
+    <Modal.Body>
+        <div className="text-center">
+
+        <img src="/logo.png" alt="logo" className="modal-logo"/>
+        <p></p>
+        <h6 className='h4'>Login</h6>
+        </div>
         {errorText &&
           <Alert variant="danger">
             {errorText}
@@ -63,17 +65,23 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, onLoginSuccessful, o
             registerOptions={{ required: "Required" }}
             error={errors.password}
           />
+            <div className="text-center">
           <Button
             type="submit"
             disabled={isSubmitting}
             className="varient"
+            style={{backgroundColor: '#00b3b3', color: 'white', alignSelf: 'center', width: '100%'}}
           >
             Login
-          </Button>
+          </Button >
+            </div>
         </Form>
+        <p> </p>
         <div className="text-center mt-3">
-          <p>Don't have an account?</p>
-            <Button onClick={onSignUpClick}>Sign up</Button>
+          <p>Don't have an account? <br/>
+            
+          <Button type="button" className="btn btn-link" onClick={onSignUpClick}>Sign up</Button>
+            </p>
         </div>
       </Modal.Body>
     </Modal>

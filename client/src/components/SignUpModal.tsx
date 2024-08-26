@@ -6,6 +6,7 @@ import * as UsersApi from "../network/users_api";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
 import TextInputField from "./form/TextInputField";
 import { ConflictError } from "../errors/http_errors";
+import './modalStyles.css';
 
 interface SignUpModalProps {
   onDismiss: () => void;
@@ -33,10 +34,13 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ onDismiss, onSignUpSuccessful
 
   return (
     <Modal show onHide={onDismiss} centered>
-      <Modal.Header closeButton>
-        <Modal.Title>Sign Up</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
+    <Modal.Body>
+        <div className="text-center">
+
+        <img src="/logo.png" alt="logo" className="modal-logo"/>
+        <p></p>
+        <h6 className='h4'>Signup</h6>
+        </div>
         {errorText &&
           <Alert variant="danger">
             {errorText}
@@ -74,12 +78,17 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ onDismiss, onSignUpSuccessful
             type="submit"
             disabled={isSubmitting}
             className="varient"
+            style={{backgroundColor: '#00b3b3', color: 'white', alignSelf: 'center', width: '100%'}}
           >
             Sign Up
           </Button>
         </Form>
+        <p> </p>
         <div className="text-center mt-3">
-          <p>Already have an account? <Button variant="link" onClick={onLoginClick}>Log in</Button></p>
+          <p>Do you have an account already? <br/>
+            
+          <Button type="button" className="btn btn-link" onClick={onLoginClick}>Login</Button>
+            </p>
         </div>
       </Modal.Body>
     </Modal>
