@@ -1,4 +1,4 @@
-import { Button, Navbar } from "react-bootstrap";
+import { Button, NavLink } from "react-bootstrap";
 import { FaUserCircle } from "react-icons/fa";
 import { User } from "../../models/userModel";
 import * as UsersApi from "../../network/users_api";
@@ -23,9 +23,9 @@ const HeaderLoggedInView = ({ user, onLogoutSuccessful }: HeaderLoggedInViewProp
 
     return (
         <>
-            <Navbar.Text className="me-2">
+            <NavLink className="me-2">
             <FaUserCircle className="profile-icon" style={{ height: '1em',width:'1em', marginRight: '10px' }} />
-            </Navbar.Text>
+            </NavLink>
             <Button onClick={logout} className="btn-outline-teal">Log out</Button>
         </>
     );
