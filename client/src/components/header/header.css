@@ -104,3 +104,31 @@
   background-color: aliceblue;
   }
 
+
+  .modal-dialog {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.modal-content {
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: center;
+}
+
+.modal-title {
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+.modal-title img {
+  height: 40px; /* Adjust as needed */
+  margin-right: 10px;
+}
