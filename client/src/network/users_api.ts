@@ -73,10 +73,31 @@ export interface UserUpdate {
     email?: string,
     password?: string,
 }
+export interface UserUpdate {
+    firstName?: string;
+    lastName?: string;
+    birthday?: string;
+    phoneNumber?: string;
+    address?: string;
+    favoriteBook?: string;
+    favoriteGenres?: string[];
+
+}
 
 export async function createUser(user: UserInput): Promise<User> {
     const response = await fetchData("/api/users", {
         method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+    });
+    return response.json();
+}
+
+export async function updateProfile(userId: string, user: UserUpdate): Promise<User> {
+    const response = await fetchData(`/api/users/${userId}`, {
+        method: "PATCH",
         headers: {
             "Content-Type": "application/json",
         },
@@ -96,12 +117,23 @@ export async function updateUser(userId: string, user: UserUpdate): Promise<User
     return response.json();
 }
 
+export const getUserProfile = async () => {
+    const response = await axios.get('/api/users'); 
+    return response.data;
+};
+
 export async function deleteUser(userId: string) {
     await fetchData(`/api/users/${userId}`, { method: "DELETE" });
 }
 
-export const getUserById = async (userId: string): Promise<User> => {
+export const getUserById = async (userId: string) => {
     const response = await axios.get(`/api/users/${userId}`);
     return response.data;
+}
+
+export const updateUserProfile = async (userId: string, updatedData: Partial<User>) => {
+    const response = await axios.patch(`/api/users/${userId}`, updatedData);
+    return response.data;
 };
+
 

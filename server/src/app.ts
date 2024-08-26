@@ -25,12 +25,15 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         maxAge: 60 * 60 * 1000, // 1 hour
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production' // Use secure cookies in production
     },
     rolling: true,
     store: MongoStore.create({
         mongoUrl: env.MONGO_CONNECTION_STRING
     }),
 }));
+
 
 // Middleware to enable CORS
 app.use(cors());

@@ -1,53 +1,65 @@
-import React from 'react';
-import { Container, Button, Card } from 'react-bootstrap';
-import { Link, useParams, NavLink } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Container, Card, Button } from 'react-bootstrap';
 import { User } from '../../models/userModel';
 import * as UsersApi from '../../network/users_api';
+import ProfileModal from '../../components/ProfileModal'; // Adjust the import path as needed
 
 const ProfilePage: React.FC = () => {
-  const { userId } = useParams<{ userId: string }>();
-  const [user, setUser] = React.useState<User | null>(null);
+    const [user, setUser] = useState<User | null>(null);
+    const [showModal, setShowModal] = useState(false);
 
-  React.useEffect(() => {
-    async function fetchUser() {
-      try {
-        const userData = await UsersApi.getUserById(userId!);
-        setUser(userData);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    fetchUser();
-  }, [userId]);
+    useEffect(() => {
+        async function fetchUser() {
+            try {
+                const response = await UsersApi.getUserProfile();
+                setUser(response);
+            } catch (error) {
+                console.error(error);
+                alert('Failed to load user profile.');
+            }
+        }
 
-  if (!user) {
-    return <div>Loading...</div>;
-  }
+        fetchUser();
+    }, []);
 
-  return (
-    <Container className="profile-page">
-      <Card className="profile-header">
-        <Card.Body>
-          <div className="profile-picture">
-            {/* Placeholder for profile picture */}
-            <img src="/path-to-default-avatar.png" alt="Profile" />
-          </div>
-          <h2>{user.username}</h2>
-          <NavLink to={`/edit-profile/${user._id}`} className="btn btn-outline-primary">Edit Profile</NavLink>
-        </Card.Body>
-      </Card>
-      <Card className="profile-info">
-        <Card.Body>
-          <h3>Profile Information</h3>
-          <p><strong>Email:</strong> {user.email}</p>
-          <p><strong>Favorite Genres:</strong> {user.favoriteGenres.join(', ') || 'None'}</p>
-          <p><strong>Rated Books:</strong> {user.ratedBooks.length ? user.ratedBooks.map(ratedBook => (
-            <span key={ratedBook.bookId}>{ratedBook.bookId} ({ratedBook.rating}), </span>
-          )) : 'None'}</p>
-        </Card.Body>
-      </Card>
-    </Container>
-  );
+    const handleEditProfile = (updatedUser: User) => {
+        setUser(updatedUser);
+    };
+
+    const handleShowModal = () => setShowModal(true);
+    const handleCloseModal = () => setShowModal(false);
+
+    return (
+        <Container>
+            {user && (
+                <>
+                    <Card className="profile-card">
+                        <Card.Body>
+                            <Card.Title>{user.username}</Card.Title>
+                            <Card.Subtitle className="mb-2 text-muted">{user.email}</Card.Subtitle>
+                            <Card.Text>
+                                <strong>First Name:</strong> {user.firstName}<br />
+                                <strong>Last Name:</strong> {user.lastName}<br />
+                                <strong>Birthday:</strong> {user.birthday ? new Date(user.birthday).toLocaleDateString() : 'N/A'}<br />
+                                <strong>Phone Number:</strong> {user.phoneNumber}<br />
+                                <strong>Address:</strong> {user.address}<br />
+                                <strong>Favorite Book:</strong> {user.favoriteBook}<br />
+                                <strong>Favorite Genres:</strong> {user.favoriteGenres?.join(', ') ?? ''}
+                            </Card.Text>
+                            <Button onClick={handleShowModal} variant="outline-primary">Edit Profile</Button>
+                            <Button variant="outline-success" style={{ marginLeft: '10px' }}>Add to Wishlist</Button>
+                        </Card.Body>
+                    </Card>
+                    <ProfileModal
+                        user={user}
+                        show={showModal}
+                        onHide={handleCloseModal}
+                        onSave={handleEditProfile}
+                    />
+                </>
+            )}
+        </Container>
+    );
 };
 
 export default ProfilePage;

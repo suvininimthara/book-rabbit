@@ -146,9 +146,9 @@ export const getUserById = async (req: Request, res: Response) => {
   };
   
 
-export const updateUser: RequestHandler = async (req, res, next) => {
+  export const updateUser: RequestHandler = async (req, res, next) => {
     const userId = req.session.userId;
-    const { username, email } = req.body;
+    const { firstName, lastName, phoneNumber, address, favoriteBook, favoriteGenres } = req.body;
 
     try {
         if (!userId) {
@@ -161,8 +161,12 @@ export const updateUser: RequestHandler = async (req, res, next) => {
             throw createHttpError(404, 'User not found');
         }
 
-        user.username = username;
-        user.email = email;
+        user.firstName = firstName;
+        user.lastName = lastName;
+        user.phoneNumber = phoneNumber;
+        user.address = address;
+        user.favoriteBook = favoriteBook;
+        user.favoriteGenres = favoriteGenres;
 
         await user.save();
 
@@ -171,6 +175,7 @@ export const updateUser: RequestHandler = async (req, res, next) => {
         next(error);
     }
 };
+
 
 export const deleteUser = async (req: Request, res: Response) => {
     try {

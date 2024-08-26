@@ -15,4 +15,6 @@ router.get('/:id', UserController.getUserById);
 
 router.patch('/:id', UserController.updateUser);
 
+router.get('/all', UserController.getAllUsers);
+
 export default router;
