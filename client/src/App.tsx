@@ -1,23 +1,11 @@
-import React, { useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { Button } from 'react-bootstrap';
+import React from 'react';
 
-function App() {
-  const [clickcount, setCount] = useState(0);
+const Book: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          subscribe to <code>src/App.tsx</code> and save to reload.
-        </p>
-          <Button onClick={() => setCount(clickcount + 1)}>
-            Click {clickcount} me
-          </Button> 
-      </header>
+    <div>
+      <h1>Book List</h1>
     </div>
   );
-}
+};
 
-export default App;
+export default Book;
