@@ -9,6 +9,7 @@ import createHttpError, {isHttpError} from "http-errors";
 import session from "express-session";
 import env from "./util/validateEnv";
 import MongoStore from "connect-mongo";
+import cors from 'cors';
 
 const app = express();
 
@@ -30,6 +31,9 @@ app.use(session({
         mongoUrl: env.MONGO_CONNECTION_STRING
     }),
 }));
+
+// Middleware to enable CORS
+app.use(cors());
 
 // Routes
 app.use('/api/books', bookRoutes);

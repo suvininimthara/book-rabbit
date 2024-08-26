@@ -1,3 +1,4 @@
+import axios from "axios";
 import { User } from "../models/userModel";
 import { ConflictError, UnauthorizedError } from "../errors/http_errors";
 
@@ -65,6 +66,12 @@ export interface UserInput {
     username: string,
     email: string,
     password: string,
+    
+}
+export interface UserUpdate {
+    username?: string,
+    email?: string,
+    password?: string,
 }
 
 export async function createUser(user: UserInput): Promise<User> {
@@ -78,8 +85,8 @@ export async function createUser(user: UserInput): Promise<User> {
     return response.json();
 }
 
-export async function updateUser(userId: string, user: UserInput): Promise<User> {
-    const response = await fetchData(`/api/users/${userId}`, {
+export async function updateUser(userId: string, user: UserUpdate): Promise<User> {
+    const response = await fetchData(/api/users/${userId}, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",
@@ -90,5 +97,10 @@ export async function updateUser(userId: string, user: UserInput): Promise<User>
 }
 
 export async function deleteUser(userId: string) {
-    await fetchData(`/api/users/${userId}`, { method: "DELETE" });
+    await fetchData(/api/users/${userId}, { method: "DELETE" });
 }
+
+export const getUserById = async (userId: string): Promise<User> => {
+    const response = await axios.get(/api/users/${userId});
+    return response.data;
+};

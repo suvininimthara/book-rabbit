@@ -1,6 +1,7 @@
 import { Button, NavLink } from "react-bootstrap";
 import { FaUserCircle } from "react-icons/fa";
 import { User } from "../../models/userModel";
+import { Link } from 'react-router-dom';
 import * as UsersApi from "../../network/users_api";
 import './header.css';
 
@@ -23,7 +24,7 @@ const HeaderLoggedInView = ({ user, onLogoutSuccessful }: HeaderLoggedInViewProp
 
     return (
         <>
-            <NavLink className="me-2">
+            <NavLink className="me-2" as={Link} to={/profile/${user._id}}>
             <FaUserCircle className="profile-icon" style={{ height: '1em',width:'1em', marginRight: '10px' }} />
             </NavLink>
             <Button onClick={logout} className="btn-outline-teal">Log out</Button>

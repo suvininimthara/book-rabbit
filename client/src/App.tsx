@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Container } from 'react-bootstrap';
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Routes, Route,  } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import BooksPage from './pages/BooksPage';
+import ProfilePage from './pages/ProfilePage';
 import NotFoundPage from './pages/NotFoundPage';
 import SignUpModal from './components/SignUpModal';
 import LoginModal from './components/LoginModal';
@@ -13,6 +13,7 @@ import { User } from './models/userModel';
 import Header from './components/header/HeaderComponent';
 import Footer from './components/FooterComponent';
 import * as UsersApi from "./network/users_api";
+import { Container } from 'react-bootstrap';
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
@@ -23,6 +24,7 @@ function App() {
     async function fetchLoggedInUser() {
       try {
         const user = await UsersApi.getLoggedInUser();
+        console.log('Logged in user:', user);
         setLoggedInUser(user);
       } catch (error) {
         console.error(error);
@@ -47,6 +49,7 @@ function App() {
           <Routes>
             <Route path='/' element={<HomePage />} />
             <Route path='/books' element={<BooksPage />} />
+            <Route path='/profile/:userId' element={<ProfilePage />} />
             <Route path='/*' element={<NotFoundPage />} />
           </Routes>
         </Container>
