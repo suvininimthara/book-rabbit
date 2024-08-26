@@ -33,7 +33,7 @@ const ProfilePage: React.FC = () => {
             <img src="/path-to-default-avatar.png" alt="Profile" />
           </div>
           <h2>{user.username}</h2>
-          <NavLink to={/edit-profile/${user._id}} className="btn btn-outline-primary">Edit Profile</NavLink>
+          <NavLink to={`/edit-profile/${user._id}`} className="btn btn-outline-primary">Edit Profile</NavLink>
         </Card.Body>
       </Card>
       <Card className="profile-info">

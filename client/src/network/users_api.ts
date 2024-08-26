@@ -86,7 +86,7 @@ export async function createUser(user: UserInput): Promise<User> {
 }
 
 export async function updateUser(userId: string, user: UserUpdate): Promise<User> {
-    const response = await fetchData(/api/users/${userId}, {
+    const response = await fetchData(`/api/users/${userId}`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",
@@ -97,10 +97,11 @@ export async function updateUser(userId: string, user: UserUpdate): Promise<User
 }
 
 export async function deleteUser(userId: string) {
-    await fetchData(/api/users/${userId}, { method: "DELETE" });
+    await fetchData(`/api/users/${userId}`, { method: "DELETE" });
 }
 
 export const getUserById = async (userId: string): Promise<User> => {
-    const response = await axios.get(/api/users/${userId});
+    const response = await axios.get(`/api/users/${userId}`);
     return response.data;
 };
+

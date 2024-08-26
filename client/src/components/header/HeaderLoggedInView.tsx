@@ -24,7 +24,7 @@ const HeaderLoggedInView = ({ user, onLogoutSuccessful }: HeaderLoggedInViewProp
 
     return (
         <>
-            <NavLink className="me-2" as={Link} to={/profile/${user._id}}>
+            <NavLink className="me-2" as={Link} to={`/profile/${user._id}`}>
             <FaUserCircle className="profile-icon" style={{ height: '1em',width:'1em', marginRight: '10px' }} />
             </NavLink>
             <Button onClick={logout} className="btn-outline-teal">Log out</Button>
