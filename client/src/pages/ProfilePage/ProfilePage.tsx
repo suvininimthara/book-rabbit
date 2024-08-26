@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container, Button, Card } from 'react-bootstrap';
 import { Link, useParams, NavLink } from 'react-router-dom';
-import { User } from '../models/userModel';
-import * as UsersApi from '../network/users_api';
+import { User } from '../../models/userModel';
+import * as UsersApi from '../../network/users_api';
 
 const ProfilePage: React.FC = () => {
   const { userId } = useParams<{ userId: string }>();

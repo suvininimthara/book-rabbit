@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route,  } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import BooksPage from './pages/BooksPage';
-import ProfilePage from './pages/ProfilePage';
+import ProfilePage from './pages/ProfilePage/ProfilePage';
 import NotFoundPage from './pages/NotFoundPage';
 import SignUpModal from './components/SignUpModal';
 import LoginModal from './components/LoginModal';
