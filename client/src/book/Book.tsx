@@ -16,6 +16,13 @@ interface Book {
   };
 }
 
+interface BookListProps {
+  books: Book[];
+  wishlist: Book[];
+  toggleWishlistView: () => void;
+  wishlistView: boolean;
+}
+
 const StarRating: React.FC<{ rating?: number }> = ({ rating }) => {
   const stars = Math.round(rating || 0);
   return (
@@ -29,40 +36,51 @@ const StarRating: React.FC<{ rating?: number }> = ({ rating }) => {
   );
 };
 
-const BookList: React.FC<{ books: Book[], wishlist: Book[], toggleWishlistView: () => void }> = ({ books, wishlist, toggleWishlistView }) => (
-  <div>
-    <ul className="book-list">
-      {books.map((book) => (
-        <li key={book.id} className="book-list-item">
-          {book.volumeInfo.imageLinks?.thumbnail && (
-            <img
-              src={book.volumeInfo.imageLinks.thumbnail}
-              alt={`Cover of ${book.volumeInfo.title}`}
-              className="book-image"
-            />
-          )}
-          <div className="book-info">
-            <h2 className="book-title">
-              <Link to={`/book/${book.id}`}>{book.volumeInfo.title}</Link>
-            </h2>
-            {book.volumeInfo.averageRating && (
-              <StarRating rating={book.volumeInfo.averageRating} />
-            )}
-          </div>
-        </li>
-      ))}
-    </ul>
-  </div>
-);
+const BookList: React.FC<BookListProps> = ({ books, wishlist, toggleWishlistView, wishlistView }) => {
+  const displayBooks = wishlistView ? wishlist : books;
 
-const BookDetail: React.FC<{
+  return (
+    <div>
+      <ul className="book-list">
+        {displayBooks.length === 0 ? (
+          <p>No books available</p>
+        ) : (
+          displayBooks.map((book) => (
+            <li key={book.id} className="book-list-item">
+              <Link to={`/book/${book.id}`}>
+                {book.volumeInfo.imageLinks?.thumbnail && (
+                  <img
+                    src={book.volumeInfo.imageLinks.thumbnail}
+                    alt={`Cover of ${book.volumeInfo.title}`}
+                    className="book-image"
+                  />
+                )}
+              </Link>
+              <div className="book-info">
+                <h2 className="book-title">
+                  <Link to={`/book/${book.id}`}>{book.volumeInfo.title}</Link>
+                </h2>
+                {book.volumeInfo.averageRating && (
+                  <StarRating rating={book.volumeInfo.averageRating} />
+                )}
+              </div>
+            </li>
+          ))
+        )}
+      </ul>
+    </div>
+  );
+};
+
+interface BookDetailProps {
   books: Book[];
   wishlist: Book[];
   addToWishlist: (book: Book) => void;
   removeFromWishlist: (bookId: string) => void;
   toggleWishlistView: () => void;
-  resetWishlistView: () => void; 
-}> = ({ books, wishlist, addToWishlist, removeFromWishlist, toggleWishlistView, resetWishlistView }) => {
+}
+
+const BookDetail: React.FC<BookDetailProps> = ({ books, wishlist, addToWishlist, removeFromWishlist, toggleWishlistView }) => {
   const { id } = useParams<{ id: string }>();
   const book = books.find((book) => book.id === id);
 
@@ -74,9 +92,13 @@ const BookDetail: React.FC<{
 
   const handleWishlistToggle = () => {
     if (isInWishlist) {
-      removeFromWishlist(book.id);
+      if (window.confirm("Do you want to remove from wishlist?")) {
+        removeFromWishlist(book.id);
+      }
     } else {
-      addToWishlist(book);
+      if (window.confirm("Do you want to add to wishlist?")) {
+        addToWishlist(book);
+      }
     }
   };
 
@@ -89,6 +111,7 @@ const BookDetail: React.FC<{
               src={book.volumeInfo.imageLinks.thumbnail}
               alt={`Cover of ${book.volumeInfo.title}`}
               className="book-detail-image-img"
+              onClick={() => window.location.href = `/book/${book.id}`} // Redirect to book detail on image click
             />
           )}
         </div>
@@ -119,7 +142,6 @@ const BookDetail: React.FC<{
           </div>
         </div>
       </div>
-     
     </div>
   );
 };
