@@ -6,6 +6,7 @@ import ProfilePage from './pages/ProfilePage/ProfilePage';
 import NotFoundPage from './pages/NotFoundPage';
 import SignUpModal from './components/SignUpModal';
 import LoginModal from './components/LoginModal';
+import AddBook from './components/AddBook';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
@@ -51,6 +52,7 @@ function App() {
             <Route path='/' element={<HomePage />} />
             <Route path='/books' element={<BooksPage />} />
             <Route path='/profile/:userId' element={<ProfilePage />} />
+            <Route path="/add-book" element={<AddBook />} />
             <Route path='/*' element={<NotFoundPage />} />
           </Routes>
         </Container>

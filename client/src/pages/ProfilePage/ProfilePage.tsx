@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Form, Button, Card } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { User } from '../../models/userModel';
 import * as UsersApi from '../../network/users_api';
 import ProfileModal from '../../components/ProfileModal'; // Adjust the import path as needed
@@ -8,6 +9,7 @@ import './ProfilePage.css';
 const ProfilePage: React.FC = () => {
     const [user, setUser] = useState<User>({} as User);
     const [showModal, setShowModal] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchUser() {
@@ -36,7 +38,7 @@ const ProfilePage: React.FC = () => {
             <div className="button-group">
                 <Button onClick={handleShowModal} variant="outline-primary" className="custom-button">Edit Profile</Button>
                 <Button variant="outline-success" className="custom-button">Wishlist</Button>
-                <Button variant="outline-info" className="custom-button">Add Book</Button>
+                <Button variant="outline-info" className="custom-button" onClick={() => navigate('/add-book')}>Add Book</Button>
             </div>
             
             <section className="profile-section">

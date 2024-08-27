@@ -4,8 +4,10 @@ interface IBook extends Document {
     title: string;
     author: string;
     genre: string;
-    ratings: { userId: Schema.Types.ObjectId, rating: number }[];
+    ratings: number;
     averageRating: number;
+    description: string;
+    imageUrl: string;
 }
 
 const bookSchema = new Schema<IBook>({
@@ -14,11 +16,12 @@ const bookSchema = new Schema<IBook>({
     genre: { type: String, required: true },
     ratings: [
         {
-            userId: { type: Schema.Types.ObjectId, ref: 'User' },
             rating: { type: Number, min: 1, max: 5 }
         }
     ],
-    averageRating: { type: Number, default: 0 }
+    averageRating: { type: Number, default: 0 },
+    description: { type: String, required: true },
+    imageUrl: { type: String, required: true },
 }, { timestamps: true });
 
 bookSchema.methods.updateAverageRating = function () {
