@@ -6,6 +6,7 @@ import * as UsersApi from '../../network/users_api';
 import ProfileModal from '../../components/ProfileModal'; // Adjust the import path as needed
 import './ProfilePage.css';
 
+
 const ProfilePage: React.FC = () => {
     const [user, setUser] = useState<User>({} as User);
     const [showModal, setShowModal] = useState(false);
@@ -45,7 +46,8 @@ const ProfilePage: React.FC = () => {
                 {user && (
                     <Card className="profile-card">
                         <Card.Body>
-                            <Card.Title className="profile-card-title text-center d-block mt-3">User Profile</Card.Title>
+                        <div className="title">
+                          <h3 className= "text-center">User Profile</h3> </div>
                             <Card.Text>
                                 <Form>
                                     <Form.Group>

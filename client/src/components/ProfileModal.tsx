@@ -3,6 +3,7 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import { User } from '../models/userModel';
 import * as UsersApi from '../network/users_api';
 import './modalStyles.css'; 
+
 interface ProfileModalProps {
     user: User;
     show: boolean;
@@ -47,7 +48,8 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ user, show, onHide, onSave 
     };
 
     return (
-        <Modal show={show} onHide={onHide} centered>
+        <div className='profile'>
+        <Modal show={show} onHide={onHide} centered >
         <Modal.Body>
         <h6 className='h4'>Edit Profile</h6>
                 <Form>
@@ -125,6 +127,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ user, show, onHide, onSave 
                 </Button>
             </Modal.Footer>
         </Modal>
+        </div>
     );
 };
 
