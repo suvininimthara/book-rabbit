@@ -14,6 +14,7 @@ interface Book {
     reviews: number; 
     date: string;
     createdAt: string;
+    year: number; 
 }
 
 const BookPage = () => {
@@ -62,7 +63,11 @@ const BookPage = () => {
                 imageUrl={book.imageUrl}
                 rating={book.rating}
                 reviews={book.reviews || 0}
-                author={book.author}  // Pass author to BookCard
+                author={book.author}
+                year={book.year} // Add the 'year' property
+                handleRating={(bookId, rate) => {
+                    // handle rating logic here
+                }}
             />
         ))}
             </div>

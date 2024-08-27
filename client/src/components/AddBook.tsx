@@ -10,6 +10,7 @@ const AddBookForm = () => {
     const [ratings, setRatings] = useState(0);
     const [description, setDescription] = useState('');
     const [imageUrl, setImageUrl] = useState('');
+    const [year, setYear] = useState('');
     const [message, setMessage] = useState('');
     const [messageType, setMessageType] = useState(''); // 'success' or 'error'
     const navigate = useNavigate();
@@ -25,10 +26,10 @@ const AddBookForm = () => {
             title,
             author,
             genre,
-            ratings: [{ userId: '', rating: ratings }],
             averageRating: ratings,
             description,
             imageUrl,
+            year,
         };
 
         try {
@@ -39,9 +40,9 @@ const AddBookForm = () => {
             setTitle('');
             setAuthor('');
             setGenre('');
-            setRatings(0);
             setDescription('');
             setImageUrl('');
+            setYear('');
         } catch (error) {
             console.error('Failed to add book:', error);
             setMessage('Failed to add book. Please try again.');
@@ -89,14 +90,13 @@ const AddBookForm = () => {
                         required
                     />
                 </div>
+
                 <div>
-                    <label>Ratings:</label>
+                    <label>Year:</label>
                     <input
                         type="number"
-                        value={ratings}
-                        onChange={(e) => setRatings(Number(e.target.value))}
-                        min="1"
-                        max="5"
+                        value={year}
+                        onChange={(e) => setYear(e.target.value)}
                         required
                     />
                 </div>

@@ -8,9 +8,11 @@ interface BookCardProps {
   rating: number;
   reviews: number;
   author: string;
+  year: number;
+  handleRating: (bookId: string, rate: number) => void;
 }
 
-const BookCard: React.FC<BookCardProps> = ({ title, imageUrl, rating, reviews, author }) => {
+const BookCard: React.FC<BookCardProps> = ({ title, imageUrl, rating, author, year }) => {
   const [inWishlist, setInWishlist] = useState(false);
 
   const toggleWishlist = () => {
@@ -24,20 +26,10 @@ const BookCard: React.FC<BookCardProps> = ({ title, imageUrl, rating, reviews, a
       <div className="book-details">
       <div className="book-title">{title}</div>
       <div className="book-author">{author}</div>
-      <div className="book-rating">
-        <div>
-          {Array.from({ length: 5 }, (_, i) => (
-            <FaStar key={i} color={i < rating ? "#20c997" : "#ccc"} className="fa-star" />
-          ))}
-          <span>({reviews})</span>
-        </div>
-        <FaHeart
-          className={`wishlist-icon ${inWishlist ? 'red' : ''}`}
-          onClick={toggleWishlist}
-        />
+        
         </div>
       </div>
-    </div>
+    
   );
 };
 
