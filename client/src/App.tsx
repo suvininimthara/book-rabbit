@@ -7,6 +7,8 @@ import NotFoundPage from './pages/NotFoundPage';
 import SignUpModal from './components/SignUpModal';
 import LoginModal from './components/LoginModal';
 import AddBook from './components/AddBook';
+import BlogListPage from './pages/BlogList'; 
+import AddBlogPage from './components/AddBlog';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
@@ -15,6 +17,7 @@ import Header from './components/header/HeaderComponent';
 import Footer from './components/FooterComponent';
 import * as UsersApi from "./network/users_api";
 import { Container } from 'react-bootstrap';
+
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
@@ -53,6 +56,8 @@ function App() {
             <Route path='/books' element={<BooksPage />} />
             <Route path='/profile/:userId' element={<ProfilePage />} />
             <Route path="/add-book" element={<AddBook />} />
+            <Route path="/blogs" element={<BlogListPage />} />
+            <Route path="/add-blog" element={<AddBlogPage />} />
             <Route path='/*' element={<NotFoundPage />} />
           </Routes>
         </Container>
