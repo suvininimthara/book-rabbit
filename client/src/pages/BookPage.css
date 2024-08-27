@@ -1,47 +1,8 @@
-.book-page {
-    padding: 20px;
-    font-family: Arial, sans-serif;
+/* BookPage.css */
+.book-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust minmax to fit your design */
+    gap: 10px;
+
 }
 
-.book-header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.book-details {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-}
-
-.book-image {
-    max-width: 200px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-.book-info {
-    max-width: 600px;
-}
-
-.book-info h2 {
-    margin: 0;
-}
-
-.book-info p {
-    margin: 5px 0;
-}
-
-.wishlist-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: teal;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.wishlist-button:hover {
-    background-color: darkcyan;
-}

@@ -11,7 +11,9 @@ interface Book {
     rating: number;
     description: string;
     imageUrl: string;
-    reviews: number;  // Add a reviews field if it’s not in your Book model.
+    reviews: number; 
+    date: string;
+    createdAt: string;
 }
 
 const BookPage = () => {
@@ -24,7 +26,10 @@ const BookPage = () => {
             try {
                 const response = await axios.get('/api/books');
                 if (response.data) {
-                    setBooks(response.data);
+                    const sortedBooks = response.data.sort((a: Book, b: Book) => {
+                        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+                    });
+                    setBooks(sortedBooks);
                 } else {
                     setError('No books found.');
                 }

@@ -8,6 +8,7 @@ interface IBook extends Document {
     averageRating: number;
     description: string;
     imageUrl: string;
+    
 }
 
 const bookSchema = new Schema<IBook>({
