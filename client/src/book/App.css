@@ -1,36 +1,36 @@
-/* General layout */
+
 html, body {
   height: 100%;
   margin: 0;
-  font-family: Arial, sans-serif; /* Use a clean, sans-serif font */
+  font-family: poppins; 
 }
 
 .App {
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Full viewport height */
+  height: 100vh; 
 }
 
-/* Header and Footer styles */
+
 header, footer {
   background-color: #f8f9fa;
   padding: 15px;
   text-align: center;
-  border-bottom: 2px solid #ddd; /* Thicker border below header */
+  border-bottom: 2px solid #ddd; 
 }
 
 footer {
-  border-top: 2px solid #ddd; /* Thicker border above footer */
+  border-top: 2px solid #ddd;
 }
 
-/* Main content area */
+
 .main-content {
   flex: 1;
-  overflow: auto; /* Ensure content is scrollable if it overflows */
+  overflow: auto; 
   padding: 20px;
 }
 
-/* Search bar styles */
+
 .search-bar {
   display: flex;
   justify-content: center;
@@ -41,7 +41,7 @@ footer {
   margin-right: 10px;
   padding: 10px;
   font-size: 16px;
-  border: 2px solid #007bff; /* Blue border for input */
+  border: 2px solid #007bff; 
   border-radius: 5px;
 }
 
@@ -49,44 +49,44 @@ footer {
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
-  background-color: #007bff; /* Blue button */
+  background-color: #007bff; 
   color: white;
   border: none;
   border-radius: 5px;
 }
 
 .search-bar button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3; 
 }
 
-/* Book list styles */
+
 .book-list {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 5 columns */
-  gap: 20px; /* Space between items */
-  justify-content: center; /* Center the grid */
+  grid-template-columns: repeat(5, 1fr); 
+  gap: 20px;
+    justify-content: center;
 }
 
 .book-list-item {
-  border: 2px solid #28a745; /* Green border */
+  border: 2px solid #28a745; 
   border-radius: 8px;
   padding: 15px;
   background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-  transition: transform 0.2s, box-shadow 0.2s; /* Smooth effects */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  transition: transform 0.2s, box-shadow 0.2s;
 }
-
-.book-list-item:hover {
-  transform: scale(1.05); /* Slightly enlarge on hover */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
-}
+  
+  .book-list-item:hover {
+  transform: scale(1.05); 
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); 
+  }
 
 .book-image {
   width: 120px;
-  height: 180px; /* Fixed height for consistent layout */
-  object-fit: cover; /* Ensure image fits the box */
+  height: 180px; 
+  object-fit: cover; 
   margin-bottom: 10px;
-  border-radius: 4px; /* Rounded corners for images */
+  border-radius: 4px; 
 }
 
 .book-info {
@@ -99,10 +99,10 @@ footer {
   font-size: 1.2em;
   font-weight: bold;
   margin: 0;
-  color: #333; /* Darker text color */
+  color: #333; 
 }
 
-/* Star rating styles */
+
 .star-rating {
   font-size: 1.2em;
   color: gold;
@@ -112,7 +112,7 @@ footer {
   color: gold;
 }
 
-/* Book detail styles */
+
 .book-detail {
   display: flex;
   flex-direction: column;
@@ -127,7 +127,7 @@ footer {
   gap: 20px;
   align-items: flex-start;
   max-width: 800px;
-  margin: 0 auto; /* Center content */
+  margin: 0 auto; 
 }
 
 .book-detail-image {
@@ -136,9 +136,9 @@ footer {
 
 .book-detail-image-img {
   width: 200px;
-  height: 300px; /* Adjust size for book details */
-  object-fit: cover;
-  border: 2px solid #28a745; /* Green border */
+  height: 300px; 
+    object-fit: cover;
+  border: 2px solid #28a745; 
   border-radius: 8px;
 }
 
@@ -166,7 +166,7 @@ footer {
 }
 
 .read-button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3; 
 }
 
 .heart-symbol {
@@ -197,10 +197,10 @@ footer {
   display: block;
   margin-top: 20px;
   font-size: 16px;
-  color: #007bff; /* Blue color for link */
-  text-decoration: none;
+  color: #007bff; 
+    text-decoration: none;
 }
 
 .back-to-list:hover {
-  text-decoration: underline; /* Underline on hover */
+  text-decoration: underline; 
 }
