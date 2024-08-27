@@ -47,11 +47,9 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ user, show, onHide, onSave 
     };
 
     return (
-        <Modal show={show} onHide={onHide}>
-            <Modal.Header closeButton>
-            <h6 className='h4'>Edit Profile</h6>
-            </Modal.Header>
-            <Modal.Body>
+        <Modal show={show} onHide={onHide} centered>
+        <Modal.Body>
+        <h6 className='h4'>Edit Profile</h6>
                 <Form>
                     <Form.Group controlId="formFirstName" > 
                         <Form.Label>First Name</Form.Label>
@@ -62,7 +60,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ user, show, onHide, onSave 
                             onChange={handleChange}
                         />
                     </Form.Group>
-                    <Form.Group controlId="formLastName" className="group">
+                    <Form.Group controlId="formLastName" className="mt-2">
                         <Form.Label>Last Name</Form.Label>
                         <Form.Control
                             type="text"

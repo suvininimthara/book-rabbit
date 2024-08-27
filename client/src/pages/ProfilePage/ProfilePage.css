@@ -9,9 +9,7 @@
 
 .profile-card {
   width: 500px;
-  padding: 1rem;
-  align-items: center;
-  justify-content: center;
+  padding: 50px;
   box-shadow: 0 5px 10px rgba(60, 211, 141, 0.1); /* Subtle shadow */
   margin-bottom: 20px;
 }
@@ -82,12 +80,37 @@
   border-color: #1bb39e;
   color: white;
   width: 200px;
-  margin-top: 20px;
+
 }
 
 .btn-outline-success {
   border-color: #1bb39e;
   color: white;
   width: 200px;
-  margin-top: 20px;
+
+}
+.profile-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 30px;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.custom-button {
+  width: 150px;
+}
+
+.profile-section {
+  flex-grow: 1;
+  margin-left: 20px;
+}
+
+.profile-card {
+  width: 100%;
 }
