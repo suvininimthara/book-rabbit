@@ -7,9 +7,10 @@ interface BookCardProps {
   imageUrl: string;
   rating: number;
   reviews: number;
+  author: string;  // Include the author field
 }
 
-const BookCard: React.FC<BookCardProps> = ({ title, imageUrl, rating, reviews }) => {
+const BookCard: React.FC<BookCardProps> = ({ title, imageUrl, rating, reviews, author }) => {
   const [inWishlist, setInWishlist] = useState(false);
 
   const toggleWishlist = () => {
@@ -19,20 +20,10 @@ const BookCard: React.FC<BookCardProps> = ({ title, imageUrl, rating, reviews })
   return (
     <div className="book-card">
       <img src={imageUrl} alt={title} className="book-image" />
-      <hr className='bg-light'/>
+      <hr className="bg-light" />
       <div className="book-title">{title}</div>
-      <div className="book-rating">
-        <div>
-          {Array.from({ length: 5 }, (_, i) => (
-            <FaStar key={i} color={i < rating ? "#20c997" : "#ccc"} className="fa-star" />
-          ))}
-          <span>({reviews})</span>
-        </div>
-        <FaHeart
-          className={`wishlist-icon ${inWishlist ? 'red' : ''}`}
-          onClick={toggleWishlist}
-        />
-      </div>
+      <div className="book-author">{author}</div>  {/* Display the author */}
+      
     </div>
   );
 };
