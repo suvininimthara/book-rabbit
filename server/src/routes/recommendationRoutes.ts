@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createRecommendation, getAllRecommendations, getRecommendationById, updateRecommendation, deleteRecommendation } from '../controllers/recommendationController';
+import { createRecommendation, getAllRecommendations, getRecommendationById, updateRecommendation, deleteRecommendation } from '../controllers/blogControllers';
 
 const router = Router();
 
