@@ -131,7 +131,8 @@ const App: React.FC = () => {
                 />
               }
             />
-                     </Routes>
+            {/* Ensure Wishlist is handled in BookList and BookDetail */}
+          </Routes>
         </div>
       </div>
       <Footer />
