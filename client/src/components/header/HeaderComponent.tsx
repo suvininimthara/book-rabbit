@@ -33,7 +33,7 @@ const Header= ({ loggedInUser, onSignUpClicked, onLoginClicked, onLogoutSuccessf
             <Nav className="d-flex justify-content-center">
               <Nav.Link href="/" className="nav-link-custom">Home</Nav.Link>
               <Nav.Link href="/books" className="nav-link-custom">Books</Nav.Link>
-              <Nav.Link href="/about" className="nav-link-custom">About</Nav.Link>
+              <Nav.Link href="/blogs" className="nav-link-custom">Blog</Nav.Link>
               <Nav.Link href="/contact" className="nav-link-custom">Contact</Nav.Link>
             </Nav>
             
