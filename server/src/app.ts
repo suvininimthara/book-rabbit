@@ -2,7 +2,7 @@ import "dotenv/config";
 import express, { Request, Response, NextFunction } from "express";
 import UserRoutes from "./routes/userRoutes";
 import bookRoutes from "./routes/bookRoutes";
-import recommendationRoutes from "./routes/recommendationRoutes";
+import recommendationRoutes from "./routes/blogRoutes";
 import mongoose from "mongoose";
 import morgan from "morgan";
 import createHttpError, {isHttpError} from "http-errors";
