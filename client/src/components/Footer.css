@@ -3,6 +3,8 @@
   font-family: Poppins;
   color: #c9dbdb;
   font-size: small;
+  width: 100%;
+  bottom: 0;
 }
 
 .footer h6 {

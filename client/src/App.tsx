@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate  } from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import BooksPage from './pages/BooksPage';
+import BooksPage from './pages/RecentBooksPage';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import NotFoundPage from './pages/NotFoundPage';
 import SignUpModal from './components/SignUpModal';

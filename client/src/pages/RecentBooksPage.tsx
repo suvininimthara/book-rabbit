@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './BookPage.css';
+import './RecentBookPage.css';
 import BookCard from '../components/BookCardComponent';
 
 interface Book {
@@ -54,7 +54,7 @@ const BookPage = () => {
 
     return (
         <div className="book-page">
-            <h2>Books</h2>
+            <h2>Recent Books</h2>
             <div className="book-list">
             {books.map(book => (
             <BookCard

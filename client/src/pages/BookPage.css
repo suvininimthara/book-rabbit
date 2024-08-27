@@ -1,8 +1,0 @@
-/* BookPage.css */
-.book-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust minmax to fit your design */
-    gap: 10px;
-
-}
-
