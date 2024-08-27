@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { BookList, BookDetail } from './book/Book';
 import Header from './book/HeaderComponent';
@@ -47,7 +47,7 @@ const App: React.FC = () => {
     if (isSearching) {
       fetchBooks(searchTerm);
     } else {
-      fetchBooks('subject:fiction'); // Default query
+      fetchBooks('subject:fiction');
     }
   }, [searchTerm, isSearching]);
 
@@ -69,8 +69,36 @@ const App: React.FC = () => {
     setWishlistView((prev) => !prev);
   };
 
-  const resetWishlistView = () => {
-    setWishlistView(false); // Reset wishlist view when going back to the book list
+  const LocationDisplay: React.FC = () => {
+    const location = useLocation();
+    const isBookList = location.pathname === '/';
+    const isBookDetail = location.pathname.startsWith('/book/');
+    const isWishlist = location.pathname === '/wishlist';
+
+    if (isBookList) {
+      return (
+        <div className="search-container">
+          <form className="search-bar" onSubmit={handleSearch}>
+            <input type="text" name="search" placeholder="Search books..." />
+            <button type="submit">Search</button>
+          </form>
+          <button className="wishlist-button" onClick={toggleWishlistView}>
+            {wishlistView ? 'Back to Book List' : 'Wishlist'}
+          </button>
+        </div>
+      );
+    } else if (isWishlist) {
+      return (
+        <div className="wishlist-container">
+          <button className="wishlist-button" onClick={toggleWishlistView}>
+            Back to Book List
+          </button>
+        </div>
+      );
+    } else if (isBookDetail) {
+      return null;
+    }
+    return null;
   };
 
   return (
@@ -78,37 +106,32 @@ const App: React.FC = () => {
       <Header />
       <div className="App">
         <div className="main-content">
+          <LocationDisplay />
           <Routes>
-            <Route path="/" element={
-              <>
-                <div className="search-wishlist-container">
-                  {!wishlistView && (
-                    <form className="search-bar" onSubmit={handleSearch}>
-                      <input type="text" name="search" placeholder="Search books..." />
-                      <button type="submit">Search</button>
-                    </form>
-                  )}
-                  <button className="wishlist-button" onClick={toggleWishlistView}>
-                    {wishlistView ? 'Back to Book List' : 'View Wishlist'}
-                  </button>
-                </div>
-                {wishlistView ? (
-                  <BookList books={wishlist} wishlist={wishlist} toggleWishlistView={toggleWishlistView} />
-                ) : (
-                  <BookList books={books} wishlist={wishlist} toggleWishlistView={toggleWishlistView} />
-                )}
-              </>
-            } />
-            <Route path="/book/:id" element={
-              <BookDetail
-                books={books}
-                wishlist={wishlist}
-                addToWishlist={addToWishlist}
-                removeFromWishlist={removeFromWishlist}
-                toggleWishlistView={toggleWishlistView}
-                resetWishlistView={resetWishlistView} // Pass the reset function to the BookDetail
-              />
-            } />
+            <Route
+              path="/"
+              element={
+                <BookList
+                  books={books}
+                  wishlist={wishlist}
+                  toggleWishlistView={toggleWishlistView}
+                  wishlistView={wishlistView}
+                />
+              }
+            />
+            <Route
+              path="/book/:id"
+              element={
+                <BookDetail
+                  books={books}
+                  wishlist={wishlist}
+                  addToWishlist={addToWishlist}
+                  removeFromWishlist={removeFromWishlist}
+                  toggleWishlistView={toggleWishlistView}
+                />
+              }
+            />
+            
           </Routes>
         </div>
       </div>
