@@ -24,6 +24,30 @@ interface GoogleBooksResponse {
   items: Book[];
 }
 
+const genres = {
+  fiction: 'subject:fiction',
+  politics : 'subject:politics',
+  health: 'subject:health',
+  science: 'subject:science',
+  history: 'subject:history',
+  fantasy: 'subject:fantasy',
+  romance: 'subject:romance',
+  mystery: 'subject:mystery',
+  thriller: 'subject:thriller',
+  biography: 'subject:biography',
+  travel : 'subject:travel',
+  cooking : 'subject:coooking',
+  technology:'subject:technology',
+  art : 'subject:art',
+  religion: 'subject:religion',
+  business :'subject:business',
+  spirituality : 'subject:spirituality',
+  young:'subject:young',
+
+};
+
+type Genre = keyof typeof genres;
+
 const App: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -31,6 +55,7 @@ const App: React.FC = () => {
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [wishlist, setWishlist] = useState<Book[]>([]);
   const [wishlistView, setWishlistView] = useState<boolean>(false);
+  const [selectedGenre, setSelectedGenre] = useState<Genre>('fiction');
 
   const fetchBooks = async (query: string) => {
     setLoading(true);
@@ -45,16 +70,21 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (isSearching) {
-      fetchBooks(searchTerm);
+      fetchBooks(`${searchTerm} ${genres[selectedGenre]}`);
     } else {
-      fetchBooks('subject:fiction');
+      fetchBooks(genres[selectedGenre]);
     }
-  }, [searchTerm, isSearching]);
+  }, [searchTerm, isSearching, selectedGenre]);
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSearching(true);
     setSearchTerm((e.target as HTMLFormElement).search.value);
+  };
+
+  const handleGenreChange = (genre: Genre) => {
+    setSelectedGenre(genre);
+    setIsSearching(false);
   };
 
   const addToWishlist = (book: Book) => {
@@ -71,34 +101,41 @@ const App: React.FC = () => {
 
   const LocationDisplay: React.FC = () => {
     const location = useLocation();
-    const isBookList = location.pathname === '/';
     const isBookDetail = location.pathname.startsWith('/book/');
     const isWishlist = location.pathname === '/wishlist';
 
-    if (isBookList) {
-      return (
+    return (
+      <div className="header-container">
         <div className="search-container">
-          <form className="search-bar" onSubmit={handleSearch}>
-            <input type="text" name="search" placeholder="Search books..." />
-            <button type="submit">Search</button>
-          </form>
-          <button className="wishlist-button" onClick={toggleWishlistView}>
-            {wishlistView ? 'Back to Book List' : 'Wishlist'}
-          </button>
+          {isWishlist ? (
+            <h1 className="wishlist-title">Wishlist</h1>
+          ) : !isBookDetail ? (
+            <>
+              <form className="search-bar" onSubmit={handleSearch}>
+                <input type="text" name="search" placeholder="Search books..." />
+                <button type="submit">Search</button>
+              </form>
+              {!wishlistView && (
+                <div className="genre-select">
+                  {Object.keys(genres).map((genre) => (
+                    <button
+                      key={genre}
+                      onClick={() => handleGenreChange(genre as Genre)}
+                      className={selectedGenre === genre ? 'active-genre' : ''}
+                    >
+                      {genre.charAt(0).toUpperCase() + genre.slice(1)}
+                    </button>
+                  ))}
+                </div>
+              )}
+              <button className="wishlist-button" onClick={toggleWishlistView}>
+                {wishlistView ? 'Back to Book List' : 'Wishlist'}
+              </button>
+            </>
+          ) : null}
         </div>
-      );
-    } else if (isWishlist) {
-      return (
-        <div className="wishlist-container">
-          <button className="wishlist-button" onClick={toggleWishlistView}>
-            Back to Book List
-          </button>
-        </div>
-      );
-    } else if (isBookDetail) {
-      return null;
-    }
-    return null;
+      </div>
+    );
   };
 
   return (
@@ -131,7 +168,17 @@ const App: React.FC = () => {
                 />
               }
             />
-            {/* Ensure Wishlist is handled in BookList and BookDetail */}
+            <Route
+              path="/wishlist"
+              element={
+                <BookList
+                  books={wishlist}
+                  wishlist={wishlist}
+                  toggleWishlistView={toggleWishlistView}
+                  wishlistView={false}
+                />
+              }
+            />
           </Routes>
         </div>
       </div>

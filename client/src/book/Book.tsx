@@ -43,7 +43,7 @@ const BookList: React.FC<BookListProps> = ({ books, wishlist, toggleWishlistView
     <div>
       <ul className="book-list">
         {displayBooks.length === 0 ? (
-          <p>No books available</p>
+          <p>No books available in wishlist</p>
         ) : (
           displayBooks.map((book) => (
             <li key={book.id} className="book-list-item">
@@ -138,7 +138,8 @@ const BookDetail: React.FC<BookDetailProps> = ({ books, wishlist, addToWishlist,
             >
               ♥
             </span>
-            <Link to="/" className="back-to-book-list-button">Back to Book List</Link>
+            <Link to="/" className="back-to-list">Back to Book List</Link>
+
           </div>
         </div>
       </div>
