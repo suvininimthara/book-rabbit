@@ -65,3 +65,12 @@ export const deleteBook = async (req: Request, res: Response) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+export const getRecentBooks = async (req: Request, res: Response) => {
+    try {
+        const books = await Book.find().sort({ createdAt: -1 }).limit(10); // Adjust limit as needed
+        res.json(books);
+    } catch (error: any) {
+        res.status(500).json({ message: error.message });
+    }
+};
