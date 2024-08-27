@@ -29,26 +29,30 @@ const StarRating: React.FC<{ rating?: number }> = ({ rating }) => {
   );
 };
 
-const BookList: React.FC<{ books: Book[], wishlist: Book[] }> = ({ books, wishlist }) => (
-  <ul className="book-list">
-    {books.map((book) => (
-      <li key={book.id} className="book-list-item">
-        {book.volumeInfo.imageLinks?.thumbnail && (
-          <img
-            src={book.volumeInfo.imageLinks.thumbnail}
-            alt={`Cover of ${book.volumeInfo.title}`}
-            className="centered-image"
-          />
-        )}
-        <h2 className="book-title">
-          <Link to={`/book/${book.id}`}>{book.volumeInfo.title}</Link>
-        </h2>
-        {book.volumeInfo.averageRating && (
-          <StarRating rating={book.volumeInfo.averageRating} />
-        )}
-      </li>
-    ))}
-  </ul>
+const BookList: React.FC<{ books: Book[], wishlist: Book[], toggleWishlistView: () => void }> = ({ books, wishlist, toggleWishlistView }) => (
+  <div>
+    <ul className="book-list">
+      {books.map((book) => (
+        <li key={book.id} className="book-list-item">
+          {book.volumeInfo.imageLinks?.thumbnail && (
+            <img
+              src={book.volumeInfo.imageLinks.thumbnail}
+              alt={`Cover of ${book.volumeInfo.title}`}
+              className="book-image"
+            />
+          )}
+          <div className="book-info">
+            <h2 className="book-title">
+              <Link to={`/book/${book.id}`}>{book.volumeInfo.title}</Link>
+            </h2>
+            {book.volumeInfo.averageRating && (
+              <StarRating rating={book.volumeInfo.averageRating} />
+            )}
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
 );
 
 const BookDetail: React.FC<{
@@ -78,13 +82,15 @@ const BookDetail: React.FC<{
   return (
     <div className="book-detail">
       <div className="book-detail-content">
-        {book.volumeInfo.imageLinks?.thumbnail && (
-          <img
-            src={book.volumeInfo.imageLinks.thumbnail}
-            alt={`Cover of ${book.volumeInfo.title}`}
-            className="book-detail-image"
-          />
-        )}
+        <div className="book-detail-image">
+          {book.volumeInfo.imageLinks?.thumbnail && (
+            <img
+              src={book.volumeInfo.imageLinks.thumbnail}
+              alt={`Cover of ${book.volumeInfo.title}`}
+              className="book-detail-image-img"
+            />
+          )}
+        </div>
         <div className="book-detail-text">
           <h2>{book.volumeInfo.title}</h2>
           {book.volumeInfo.authors && (
@@ -108,9 +114,6 @@ const BookDetail: React.FC<{
             >
               ♥
             </span>
-            <button onClick={toggleWishlistView} className="wishlist-button">
-              View Wishlist
-            </button>
           </div>
         </div>
       </div>
