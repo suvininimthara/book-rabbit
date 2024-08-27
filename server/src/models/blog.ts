@@ -1,4 +1,3 @@
-
 import { Schema, model, Document } from 'mongoose';
 
 export interface Blog extends Document {
@@ -16,4 +15,4 @@ const blogSchema = new Schema<Blog>({
 });
 
 const Blog = model<Blog>('Blog', blogSchema);
-export default Blog;
+export default Blog;

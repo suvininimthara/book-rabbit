@@ -1,5 +1,5 @@
 import express from 'express';
-import { createBlog, getAllBlogs, getBlogById, updateBlog, deleteBlog, getRecentBlogs } from '../controllers/bolgControllers';
+import { createBlog, getAllBlogs, getBlogById, updateBlog, deleteBlog, getRecentBlogs } from '../controllers/blogControllers';
 
 const router = express.Router();
 
@@ -10,4 +10,4 @@ router.put('/:id', updateBlog);
 router.delete('/:id', deleteBlog);     
 router.get('/recent', getRecentBlogs); 
 
-export default router;
+export default router;

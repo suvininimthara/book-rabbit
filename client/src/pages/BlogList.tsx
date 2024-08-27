@@ -47,7 +47,7 @@ const BlogListPage: React.FC = () => {
                         content={blog.content}
                         username={blog.username}
                         date={blog.date}
-                        onEdit={() => navigate(/edit-blog/${blog._id})}
+                        onEdit={() => navigate(`/edit-blog/${blog._id}`)}
                         onDelete={() => {
 
                         }}
