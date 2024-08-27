@@ -6,17 +6,14 @@ import mongoose from 'mongoose';
 
 export const createBlog = async (req: Request, res: Response) => {
     try {
-        const { title, content, username, date } = req.body;
-        if (!title || !content || !username || !date) {
-            return res.status(400).json({ message: 'All fields are required' });
-        }
-        const newBlog = new Blog({ title, content, username, date });
-        await newBlog.save();
-        res.status(201).json(newBlog);
+        const blog = new Blog(req.body);
+        await blog.save();
+        res.status(201).json(blog);
     } catch (error: any) {
-        res.status(500).json({ message: error.message });
+        res.status(400).json({ message: error.message });
     }
 };
+
 export const getAllBlogs = async (req: Request, res: Response) => {
     try {
         const blogs = await Blog.find();

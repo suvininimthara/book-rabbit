@@ -1,63 +1,50 @@
 import React, { useEffect, useState } from 'react';
-import BlogCard from '../components/BlogCard';
-import { useNavigate } from 'react-router-dom';
-import { Blog } from '../models/blogModel';
+import axios from 'axios';
+import './BlogPage.css';
 
-const BlogListPage: React.FC = () => {
+const BlogPage = () => {
+    interface Blog {
+        _id: string;
+        title: string;
+        content: string;
+        username: string;
+        date: string;
+    }
+    
     const [blogs, setBlogs] = useState<Blog[]>([]);
-    const [error, setError] = useState<string | null>(null);
-    const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchBlogs = async () => {
+        async function fetchBlogs() {
             try {
-                const response = await fetch('/api/blogs');
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const data: Blog[] = await response.json();
-                if (Array.isArray(data)) {
-                    setBlogs(data);
-                } else {
-                    throw new Error('Unexpected data format');
-                }
+                const response = await axios.get('/api/blogs');
+                // Assuming the date field is in ISO format, convert it to Date object for sorting
+                const sortedBlogs = response.data.sort((a: Blog, b: Blog) => 
+                    new Date(b.date).getTime() - new Date(a.date).getTime()
+                );
+                setBlogs(sortedBlogs);
             } catch (error) {
-                console.error('Error fetching blogs:', error);
-                setError('Failed to load blogs');
+                console.error('Failed to fetch blogs:', error);
             }
-        };
+        }
         fetchBlogs();
     }, []);
 
-    const handleAddBlog = () => {
-        navigate('/add-blog');
-    };
-
     return (
-        <div>
+        <div className="blog-page">
             <h2>Blogs</h2>
-            <button onClick={handleAddBlog}>Add Blog</button>
-            {error && <p>{error}</p>}
-            {Array.isArray(blogs) && blogs.length > 0 ? (
-                blogs.map(blog => (
-                    <BlogCard
-                        key={blog._id}
-                        _id={blog._id}
-                        title={blog.title}
-                        content={blog.content}
-                        username={blog.username}
-                        date={blog.date}
-                        onEdit={() => navigate(`/edit-blog/${blog._id}`)}
-                        onDelete={() => {
-
-                        }}
-                    />
-                ))
-            ) : (
-                <p>No blogs available.</p>
-            )}
+            <div className="blogs-list">
+                {blogs.map(blog => (
+                    <div key={blog._id} className="blog-card">
+                        <h3>{blog.title}</h3>
+                        <p>{blog.content}</p>
+                        <span className="blog-details">
+                            {blog.username} - {new Date(blog.date).toLocaleDateString()}
+                        </span>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
 
-export default BlogListPage;
+export default BlogPage;

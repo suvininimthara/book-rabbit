@@ -1,18 +1,19 @@
 import { Schema, model, Document } from 'mongoose';
 
-export interface Blog extends Document {
+interface IBlog extends Document {
     title: string;
     content: string;
-    username: string;
+    name: string;
     date: Date;
+    
 }
 
-const blogSchema = new Schema<Blog>({
+const BlogSchema: Schema = new Schema({
     title: { type: String, required: true },
     content: { type: String, required: true },
-    username: { type: String, required: true },
+    name: { type: String, required: true },
     date: { type: Date, default: Date.now },
-});
+}, { timestamps: true });
 
-const Blog = model<Blog>('Blog', blogSchema);
+const Blog = model<IBlog>('Blog', BlogSchema);
 export default Blog;
