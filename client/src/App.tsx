@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import axios from 'axios';
-import { BookList, BookDetail } from './book/Book'; // Ensure this path is correct
-import Header from './book/HeaderComponent'; // Ensure this path is correct
-import Footer from './book/FooterComponent'; // Ensure this path is correct
+import { BookList, BookDetail } from './book/Book';
+import Header from './book/HeaderComponent';
+import Footer from './book/FooterComponent';
 import './App.css';
 
 interface Book {
@@ -69,6 +69,10 @@ const App: React.FC = () => {
     setWishlistView((prev) => !prev);
   };
 
+  const resetWishlistView = () => {
+    setWishlistView(false); // Reset wishlist view when going back to the book list
+  };
+
   return (
     <Router>
       <Header />
@@ -77,12 +81,17 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={
               <>
-                {!wishlistView && (
-                  <form className="search-bar" onSubmit={handleSearch}>
-                    <input type="text" name="search" placeholder="Search books..." />
-                    <button type="submit">Search</button>
-                  </form>
-                )}
+                <div className="search-wishlist-container">
+                  {!wishlistView && (
+                    <form className="search-bar" onSubmit={handleSearch}>
+                      <input type="text" name="search" placeholder="Search books..." />
+                      <button type="submit">Search</button>
+                    </form>
+                  )}
+                  <button className="wishlist-button" onClick={toggleWishlistView}>
+                    {wishlistView ? 'Back to Book List' : 'View Wishlist'}
+                  </button>
+                </div>
                 {wishlistView ? (
                   <BookList books={wishlist} wishlist={wishlist} toggleWishlistView={toggleWishlistView} />
                 ) : (
@@ -97,6 +106,7 @@ const App: React.FC = () => {
                 addToWishlist={addToWishlist}
                 removeFromWishlist={removeFromWishlist}
                 toggleWishlistView={toggleWishlistView}
+                resetWishlistView={resetWishlistView} // Pass the reset function to the BookDetail
               />
             } />
           </Routes>
