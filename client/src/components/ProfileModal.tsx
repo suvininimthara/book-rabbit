@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { User } from '../models/userModel';
 import * as UsersApi from '../network/users_api';
-
+import './modalStyles.css'; 
 interface ProfileModalProps {
     user: User;
     show: boolean;
@@ -14,6 +14,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ user, show, onHide, onSave 
     const [formData, setFormData] = useState({
         firstName: user.firstName || '',
         lastName: user.lastName || '',
+        email: user.email || '',
         birthday: user.birthday || '',
         phoneNumber: user.phoneNumber || '',
         address: user.address || '',
@@ -48,11 +49,11 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ user, show, onHide, onSave 
     return (
         <Modal show={show} onHide={onHide}>
             <Modal.Header closeButton>
-                <Modal.Title>Edit Profile</Modal.Title>
+            <h6 className='h4'>Edit Profile</h6>
             </Modal.Header>
             <Modal.Body>
                 <Form>
-                    <Form.Group controlId="formFirstName">
+                    <Form.Group controlId="formFirstName" > 
                         <Form.Label>First Name</Form.Label>
                         <Form.Control
                             type="text"
@@ -61,7 +62,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ user, show, onHide, onSave 
                             onChange={handleChange}
                         />
                     </Form.Group>
-                    <Form.Group controlId="formLastName">
+                    <Form.Group controlId="formLastName" className="group">
                         <Form.Label>Last Name</Form.Label>
                         <Form.Control
                             type="text"
@@ -70,7 +71,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ user, show, onHide, onSave 
                             onChange={handleChange}
                         />
                     </Form.Group>
-                    <Form.Group controlId="formBirthday">
+                    <Form.Group controlId="formBirthday" className="mt-2">
                         <Form.Label>Birthday</Form.Label>
                         <Form.Control
                             type="date"
@@ -79,7 +80,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ user, show, onHide, onSave 
                             onChange={handleChange}
                         />
                     </Form.Group>
-                    <Form.Group controlId="formPhoneNumber">
+                    <Form.Group controlId="formPhoneNumber" className="mt-2">
                         <Form.Label>Phone Number</Form.Label>
                         <Form.Control
                             type="text"
@@ -88,7 +89,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ user, show, onHide, onSave 
                             onChange={handleChange}
                         />
                     </Form.Group>
-                    <Form.Group controlId="formAddress">
+                    <Form.Group controlId="formAddress" className="mt-2">
                         <Form.Label>Address</Form.Label>
                         <Form.Control
                             type="text"
@@ -97,7 +98,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ user, show, onHide, onSave 
                             onChange={handleChange}
                         />
                     </Form.Group>
-                    <Form.Group controlId="formFavoriteBook">
+                    <Form.Group controlId="formFavoriteBook" className="mt-2">
                         <Form.Label>Favorite Book</Form.Label>
                         <Form.Control
                             type="text"
@@ -106,7 +107,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ user, show, onHide, onSave 
                             onChange={handleChange}
                         />
                     </Form.Group>
-                    <Form.Group controlId="formFavoriteGenres">
+                    <Form.Group controlId="formFavoriteGenres" className="mt-2">
                         <Form.Label>Favorite Genres</Form.Label>
                         <Form.Control
                             type="text"
