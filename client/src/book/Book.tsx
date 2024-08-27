@@ -61,7 +61,7 @@ const BookDetail: React.FC<{
   addToWishlist: (book: Book) => void;
   removeFromWishlist: (bookId: string) => void;
   toggleWishlistView: () => void;
-  resetWishlistView: () => void; // Added prop to reset wishlist view
+  resetWishlistView: () => void; 
 }> = ({ books, wishlist, addToWishlist, removeFromWishlist, toggleWishlistView, resetWishlistView }) => {
   const { id } = useParams<{ id: string }>();
   const book = books.find((book) => book.id === id);
@@ -115,16 +115,11 @@ const BookDetail: React.FC<{
             >
               ♥
             </span>
+            <Link to="/" className="back-to-book-list-button">Back to Book List</Link>
           </div>
         </div>
       </div>
-      <Link
-        to="/"
-        className="back-to-list"
-        onClick={resetWishlistView} // Reset wishlist view when going back
-      >
-        Back to Book List
-      </Link>
+     
     </div>
   );
 };

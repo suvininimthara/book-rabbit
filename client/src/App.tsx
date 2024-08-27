@@ -82,9 +82,7 @@ const App: React.FC = () => {
             <input type="text" name="search" placeholder="Search books..." />
             <button type="submit">Search</button>
           </form>
-          <button className="wishlist-button" onClick={toggleWishlistView}>
-            {wishlistView ? 'Back to Book List' : 'Wishlist'}
-          </button>
+          
         </div>
       );
     } else if (isWishlist) {
@@ -131,8 +129,7 @@ const App: React.FC = () => {
                 />
               }
             />
-            
-          </Routes>
+                     </Routes>
         </div>
       </div>
       <Footer />
