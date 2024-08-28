@@ -8,6 +8,9 @@ interface IBook extends Document {
     averageRating: number;
     description: string;
     imageUrl: string;
+    ratingsCount: number;
+    reviews: number[];
+    year: number;
 }
 
 const bookSchema = new Schema<IBook>({
@@ -19,9 +22,12 @@ const bookSchema = new Schema<IBook>({
             rating: { type: Number, min: 1, max: 5 }
         }
     ],
+    ratingsCount: { type: Number, default: 0 },
     averageRating: { type: Number, default: 0 },
     description: { type: String, required: true },
     imageUrl: { type: String, required: true },
+    year: { type: Number, required: true },
+    reviews: [Number]
 }, { timestamps: true });
 
 bookSchema.methods.updateAverageRating = function () {

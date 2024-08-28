@@ -9,6 +9,7 @@ import LoginModal from './components/LoginModal';
 import AddBook from './components/AddBook';
 import BlogListPage from './pages/BlogList'; 
 import AddBlogPage from './components/AddBlog';
+import ContactPage from './pages/ContactPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
@@ -17,6 +18,7 @@ import Header from './components/header/HeaderComponent';
 import Footer from './components/FooterComponent';
 import * as UsersApi from "./network/users_api";
 import { Container } from 'react-bootstrap';
+
 
 
 function App() {
@@ -43,13 +45,14 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div>
+      <div id="root">
         <Header
           loggedInUser={loggedInUser}
           onLoginClicked={() => setShowLoginModal(true)}
           onSignUpClicked={() => setShowSignUpModal(true)}
           onLogoutSuccessful={() => setLoggedInUser(null)}
         />
+        <main>
         <Container>
           <Routes>
             <Route path='/' element={<HomePage />} />
@@ -58,6 +61,7 @@ function App() {
             <Route path="/add-book" element={<AddBook />} />
             <Route path="/blogs" element={<BlogListPage />} />
             <Route path="/add-blog" element={<AddBlogPage />} />
+            <Route path='/contact' element={<ContactPage/>} />
             <Route path='/*' element={<NotFoundPage />} />
           </Routes>
         </Container>
@@ -87,6 +91,7 @@ function App() {
             }}
           />
         }
+        </main>
         <Footer />
       </div>
     </BrowserRouter>

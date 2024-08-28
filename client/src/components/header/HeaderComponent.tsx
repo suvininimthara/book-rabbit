@@ -18,7 +18,7 @@ const Header= ({ loggedInUser, onSignUpClicked, onLoginClicked, onLogoutSuccessf
  
   return (
     <header>
-      <Navbar expand="lg" className="navbar-custom">
+      <Navbar expand="sm" className="navbar-custom">
         <Container>
           <Navbar.Brand href="/" className="navbar-brand-custom">
             <img
