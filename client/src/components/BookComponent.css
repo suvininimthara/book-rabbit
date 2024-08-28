@@ -235,6 +235,7 @@
   text-decoration: none;
   border-radius: 5px;
   transition: background-color 0.3s ease;
+  width: 200px;
 }
 
 .read-button:hover {
@@ -262,6 +263,7 @@
   text-decoration: none;
   border-radius: 5px;
   transition: background-color 0.3s ease;
+  width: 200px;
 }
 
 .back-to-list:hover {
