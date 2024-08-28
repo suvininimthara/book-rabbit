@@ -156,7 +156,7 @@ const BookPage: React.FC = () => {
               }
             />
             <Route
-              path="/book/:id"
+              path="/:id"
               element={
                 <BookDetail
                   books={books}
