@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { FaHeart, FaStar } from 'react-icons/fa';
 import { Book } from '../models/bookModel';
 import './BookCard.css';
 
