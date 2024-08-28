@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
 import axios from 'axios';
 import './BlogSection.css';
 
@@ -12,6 +13,9 @@ const BlogSection = () => {
     }
 
     const [blogs, setBlogs] = useState<Blog[]>([]);
+    const handleReadAllClick = () => {
+        window.location.href = '/blogs';
+    };
 
     useEffect(() => {
         async function fetchBlogs() {
@@ -36,6 +40,8 @@ const BlogSection = () => {
                         <span className="blog-details">{blog.username} - {new Date(blog.date).toLocaleDateString()}</span>
                     </div>
                 ))}
+                <div className='mx-auto text-center'>
+                <Button onClick={handleReadAllClick} variant="primary" >Read All</Button></div>
             </div>
         </section>
     );

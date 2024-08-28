@@ -14,3 +14,11 @@
     border-radius: 5px;
     background: #fff;
 }
+.blog-card .btn-primary {
+    background-color: #1bb39e;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100px;
+}

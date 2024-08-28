@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
 import axios from 'axios';
 import BookCard from '../BookCardComponent';
 import { Book } from '../../models/bookModel';
@@ -6,6 +7,9 @@ import './RecentBook.css';
 
 const RecentBooks = () => {
     const [books, setBooks] = useState<Book[]>([]);
+    const handleReadAllClick = () => {
+        window.location.href = '/books';
+    };
 
     useEffect(() => {
         async function fetchRecentBooks() {
@@ -38,7 +42,13 @@ const RecentBooks = () => {
                         year={book.year}
                     />
                 ))}
-            </div>
+                </div>
+
+                <div className='mx-auto text-center'>
+                    <p></p>
+                <Button onClick={handleReadAllClick} variant="primary" >Read All</Button></div>
+           
+            
         </section>
     );
 };
