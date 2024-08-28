@@ -74,6 +74,8 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ onDismiss, onSignUpSuccessful
             registerOptions={{ required: "Required" }}
             error={errors.password}
           />
+          
+
           <Button
             type="submit"
             disabled={isSubmitting}

@@ -1,4 +1,9 @@
 /* modalStyles.css */
+.modal{
+    z-index: 1200;
+    position: fixed;
+
+}
 .modal-logo {
     width: 180px; /* Adjust logo size */
     margin-bottom: 10px;
@@ -7,14 +12,14 @@
 .modal-title {
     text-align: center;
     width: 100%;
+
 }
 
 .modal-dialog {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
-    
+
     
 }
 .modal-body {
@@ -29,7 +34,18 @@
     font-weight: 600;
     margin-bottom: 10px;
     text-transform: uppercase;
+    text-align: center;
 
+}
+.h4{
+    font-size: 1.5em;
+    font-weight: 600;
+}
+    
+.modal-header {
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
 }
  .modal-body .form-group {
     width: 100px;
@@ -52,4 +68,14 @@
 .modal-body .mt-3{
     font-size: small;
     font-weight: normal;
+}
+
+.form-group{
+    margin-top: 15px;
+}
+.group{
+    margin-top: 5px;
+}
+.profile{
+    max-height: 500px;
 }

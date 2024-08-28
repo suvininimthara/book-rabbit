@@ -11,5 +11,10 @@ router.get('/', UserController.getAuthenticatedUser);
 
 router.post('/logout', UserController.logout);
 
+router.get('/:id', UserController.getUserById);
+
+router.patch('/:id', UserController.updateUser);
+
+router.get('/all', UserController.getAllUsers);
 
 export default router;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, RequestHandler, Response } from 'express';
 import User from '../models/user';
@@ -135,34 +136,46 @@ export const getAllUsers = async (req: Request, res: Response) => {
 };
 
 export const getUserById = async (req: Request, res: Response) => {
-    const userId = req.params.id;
     try {
-        if (!mongoose.isValidObjectId(userId)) {
-            throw createHttpError(400, 'Invalid user ID');
+      const user = await User.findById(req.params.id);
+      if (!user) return res.status(404).json({ message: 'User not found' });
+      res.json(user);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error' });
+    }
+  };
+  
+
+  export const updateUser: RequestHandler = async (req, res, next) => {
+    const userId = req.session.userId;
+    const { firstName, lastName, phoneNumber, address, favoriteBook, favoriteGenres } = req.body;
+
+    try {
+        if (!userId) {
+            throw createHttpError(401, 'User not authenticated');
         }
-        const user = await User.findById(req.params.id);
-        if (user) {
-            res.json(user);
-        } else {
+
+        const user = await User.findById(userId).exec();
+
+        if (!user) {
             throw createHttpError(404, 'User not found');
         }
-    } catch (error: any) {
-        res.status(500).json({ message: error.message });
+
+        user.firstName = firstName;
+        user.lastName = lastName;
+        user.phoneNumber = phoneNumber;
+        user.address = address;
+        user.favoriteBook = favoriteBook;
+        user.favoriteGenres = favoriteGenres;
+
+        await user.save();
+
+        res.status(200).json(user);
+    } catch (error) {
+        next(error);
     }
 };
 
-export const updateUser = async (req: Request, res: Response) => {
-    try {
-        const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (user) {
-            res.json(user);
-        } else {
-            throw createHttpError(404, 'User not found');
-        }
-    } catch (error: any) {
-        res.status(400).json({ message: error.message });
-    }
-};
 
 export const deleteUser = async (req: Request, res: Response) => {
     try {
