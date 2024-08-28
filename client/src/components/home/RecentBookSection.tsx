@@ -27,6 +27,7 @@ const RecentBooks = () => {
         <section className="recent-books">
             <h2>Recent Books</h2>
             <h6>Recently added books to our library</h6>
+            <br />
             <div className="book-list">
                 {books.map(book => (
                     <BookCard
@@ -44,7 +45,7 @@ const RecentBooks = () => {
                 ))}
                 </div>
 
-                <div className='mx-auto text-center'>
+                <div className='text-center'>
                     <p></p>
                 <Button onClick={handleReadAllClick} variant="primary" >Read All</Button></div>
            

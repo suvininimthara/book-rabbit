@@ -13,17 +13,13 @@ import RecentBooks from '../components/home/RecentBookSection';
 const HomePage: React.FC = () => {
     return (
         <div>
-            <HeroSection />
-
             <section className="container my-5">
-                <h3>Recent Book</h3>
-                <h6>Recently added books to our library</h6>
-            <div className="book-card-container">
-            </div>
-            <div className='mx-auto text-center'><Button variant="outline-light" className="ms-2" style={{color:'#1bb39e ', border: '1px solid #1bb39e'}}>Browes All</Button>
-            </div>
+            <HeroSection />
+            </section>
+            <section className="container my-5">
+            <RecentBooks />   
             <BlogSection />
-            <RecentBooks />
+            
             </section>
             <section className="container my-5">
                 <h4>Top Rated</h4>

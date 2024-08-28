@@ -32,6 +32,8 @@ const BlogSection = () => {
     return (
         <section className="blog-section">
             <h2>Latest Blogs</h2>
+            <h6>Read the latest blogs from our contributors</h6>
+            <br />
             <div className="blogs-list">
                 {blogs.map(blog => (
                     <div key={blog._id} className="blog-card">
@@ -40,9 +42,10 @@ const BlogSection = () => {
                         <span className="blog-details">{blog.username} - {new Date(blog.date).toLocaleDateString()}</span>
                     </div>
                 ))}
+            
                 <div className='mx-auto text-center'>
                 <Button onClick={handleReadAllClick} variant="primary" >Read All</Button></div>
-            </div>
+                </div>
         </section>
     );
 };

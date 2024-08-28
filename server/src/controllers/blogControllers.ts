@@ -69,7 +69,7 @@ export const deleteBlog = async (req: Request, res: Response) => {
 
 export const getRecentBlogs = async (req: Request, res: Response) => {
     try {
-        const blogs = await Blog.find().sort({ date: -1 }).limit(3).lean().exec();
+        const blogs = await Blog.find().sort({ date: -1 }).limit(3);
         res.json(blogs);
     } catch (error: any) {
         res.status(500).json({ message: error.message });
