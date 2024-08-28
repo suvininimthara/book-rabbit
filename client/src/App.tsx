@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate  } from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import BooksPage from './pages/RecentBooksPage';
+import BooksPage from './pages/BooksPage';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import NotFoundPage from './pages/NotFoundPage';
 import SignUpModal from './components/SignUpModal';
@@ -9,6 +9,7 @@ import LoginModal from './components/LoginModal';
 import AddBook from './components/AddBook';
 import BlogListPage from './pages/BlogList'; 
 import AddBlogPage from './components/AddBlog';
+import ContactPage from './pages/ContactPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
@@ -17,6 +18,7 @@ import Header from './components/header/HeaderComponent';
 import Footer from './components/FooterComponent';
 import * as UsersApi from "./network/users_api";
 import { Container } from 'react-bootstrap';
+
 
 
 function App() {
@@ -59,6 +61,7 @@ function App() {
             <Route path="/add-book" element={<AddBook />} />
             <Route path="/blogs" element={<BlogListPage />} />
             <Route path="/add-blog" element={<AddBlogPage />} />
+            <Route path='/contact' element={<ContactPage/>} />
             <Route path='/*' element={<NotFoundPage />} />
           </Routes>
         </Container>

@@ -12,7 +12,7 @@ const BookPage = () => {
     useEffect(() => {
         async function fetchBooks() {
             try {
-                const response = await axios.get('/api/books');
+                const response = await axios.get('/api/books/recent-books');
                 if (response.data) {
                     const sortedBooks = response.data.sort((a: Book, b: Book) => {
                         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();

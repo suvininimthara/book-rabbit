@@ -47,7 +47,7 @@ const RecentBooks = () => {
 
                 <div className='text-center'>
                     <p></p>
-                <Button onClick={handleReadAllClick} variant="primary" >Read All</Button></div>
+                <Button onClick={handleReadAllClick} variant="primary" >Browse All</Button></div>
            
             
         </section>
