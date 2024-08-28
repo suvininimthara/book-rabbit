@@ -8,7 +8,7 @@ import './RecentBook.css';
 const RecentBooks = () => {
     const [books, setBooks] = useState<Book[]>([]);
     const handleReadAllClick = () => {
-        window.location.href = '/books';
+        window.location.href = '/recent-books';
     };
 
     useEffect(() => {

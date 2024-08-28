@@ -10,6 +10,7 @@ import AddBook from './components/AddBook';
 import BlogListPage from './pages/BlogList'; 
 import AddBlogPage from './components/AddBlog';
 import ContactPage from './pages/ContactPage';
+import BookPage from './pages/RecentBooksPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
@@ -62,6 +63,7 @@ function App() {
             <Route path="/blogs" element={<BlogListPage />} />
             <Route path="/add-blog" element={<AddBlogPage />} />
             <Route path='/contact' element={<ContactPage/>} />
+            <Route path="/recent-books" element={<BookPage />} />
             <Route path='/*' element={<NotFoundPage />} />
           </Routes>
         </Container>
