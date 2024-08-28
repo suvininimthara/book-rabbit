@@ -22,7 +22,7 @@
 }
 
 .btn-primary {
-    background-color: #20c997;
+    background-color: #1bb39e;
     color: #fff;
     padding: 10px 20px;
     text-decoration: none;
@@ -32,4 +32,5 @@
 
 .btn-primary:hover {
     background-color: #17a589;
+    color: white;
 }

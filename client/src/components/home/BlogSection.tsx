@@ -42,7 +42,7 @@ const BlogSection = () => {
                         <span className="blog-details">{blog.username} - {new Date(blog.date).toLocaleDateString()}</span>
                     </div>
                 ))}
-            
+                <br />
                 <div className='mx-auto text-center'>
                 <Button onClick={handleReadAllClick} variant="primary" >Read All</Button></div>
                 </div>
