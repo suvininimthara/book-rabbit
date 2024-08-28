@@ -2,20 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './RecentBookPage.css';
 import BookCard from '../components/BookCardComponent';
-
-interface Book {
-    _id: string;
-    title: string;
-    author: string;
-    genre: string;
-    rating: number;
-    description: string;
-    imageUrl: string;
-    reviews: number; 
-    date: string;
-    createdAt: string;
-    year: number; 
-}
+import { Book } from '../models/bookModel';
 
 const BookPage = () => {
     const [books, setBooks] = useState<Book[]>([]);
@@ -58,16 +45,15 @@ const BookPage = () => {
             <div className="book-list">
             {books.map(book => (
             <BookCard
-                key={book._id}
                 title={book.title}
                 imageUrl={book.imageUrl}
-                rating={book.rating}
-                reviews={book.reviews || 0}
                 author={book.author}
-                year={book.year} // Add the 'year' property
-                handleRating={(bookId, rate) => {
-                    // handle rating logic here
-                }}
+                year={book.year}
+                _id={book._id}
+                genre={book.genre}
+                description={book.description}
+                date={book.date}
+                createdAt={book.createdAt}
             />
         ))}
             </div>

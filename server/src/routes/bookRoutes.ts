@@ -5,10 +5,10 @@ const router = Router();
 
 router.post('/', createBook);
 router.get('/', getAllBooks);
+router.get('/recent', getRecentBooks);
 router.get('/:id', getBookById);
 router.put('/:id', updateBook);
 router.delete('/:id', deleteBook);
-router.get('/recent', getRecentBooks);
 router.post('/rate/:id', rateBook);
 
 export default router;

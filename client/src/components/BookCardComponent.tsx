@@ -1,18 +1,10 @@
 import React, { useState } from 'react';
 import { FaHeart, FaStar } from 'react-icons/fa';
+import { Book } from '../models/bookModel';
 import './BookCard.css';
 
-interface BookCardProps {
-  title: string;
-  imageUrl: string;
-  rating: number;
-  reviews: number;
-  author: string;
-  year: number;
-  handleRating: (bookId: string, rate: number) => void;
-}
 
-const BookCard: React.FC<BookCardProps> = ({ title, imageUrl, rating, author, year }) => {
+const BookCard: React.FC<Book> = ({ title, imageUrl, author }) => {
   const [inWishlist, setInWishlist] = useState(false);
 
   const toggleWishlist = () => {
