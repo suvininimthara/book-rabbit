@@ -40,6 +40,7 @@ const ProfilePage: React.FC = () => {
                 <Button onClick={handleShowModal} variant="outline-primary" className="custom-button">Edit Profile</Button>
                 <Button variant="outline-success" className="custom-button">Wishlist</Button>
                 <Button variant="outline-info" className="custom-button" onClick={() => navigate('/add-book')}>Add Book</Button>
+                <Button variant="outline-warning" className="custom-button" onClick={() => navigate('/add-blog')}>Add Blog</Button>
             </div>
             
             <section className="profile-section">

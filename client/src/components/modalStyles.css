@@ -1,4 +1,9 @@
 /* modalStyles.css */
+.modal{
+    z-index: 1200;
+    position: fixed;
+
+}
 .modal-logo {
     width: 180px; /* Adjust logo size */
     margin-bottom: 10px;
@@ -70,4 +75,7 @@
 }
 .group{
     margin-top: 5px;
+}
+.profile{
+    max-height: 500px;
 }

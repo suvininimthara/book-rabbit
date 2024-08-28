@@ -1,4 +1,4 @@
-import { RequestHandler } from "express";
+import { RequestHandler } from 'express';
 import createHttpError from "http-errors";
 
 export const requiresAuth: RequestHandler = (req, res, next) => {
@@ -8,3 +8,4 @@ export const requiresAuth: RequestHandler = (req, res, next) => {
         next(createHttpError(401, "User not authenticated"));
     }
 };
+

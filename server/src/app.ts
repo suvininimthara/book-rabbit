@@ -2,7 +2,7 @@ import "dotenv/config";
 import express, { Request, Response, NextFunction } from "express";
 import UserRoutes from "./routes/userRoutes";
 import bookRoutes from "./routes/bookRoutes";
-import recommendationRoutes from "./routes/recommendationRoutes";
+import  blogRoutes from "./routes/blogRoutes";
 import mongoose from "mongoose";
 import morgan from "morgan";
 import createHttpError, {isHttpError} from "http-errors";
@@ -41,7 +41,7 @@ app.use(cors());
 // Routes
 app.use('/api/books', bookRoutes);
 app.use('/api/users', UserRoutes);
-app.use('/recommendations', recommendationRoutes);
+app.use('/api/blogs', blogRoutes);
 
 // Simple logger middleware
 app.use((req: Request, res: Response, next: NextFunction) => {
