@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import './BookComponent.css';
+import './BookCard.css'
+
 
 interface Book {
   id: string;
@@ -40,13 +42,13 @@ const BookList: React.FC<BookListProps> = ({ books, wishlist, toggleWishlistView
   const displayBooks = wishlistView ? wishlist : books;
 
   return (
-    <div>
-      <ul className="book-list">
+    <div className="book-list">
+   
         {displayBooks.length === 0 ? (
           <p>No books available in wishlist</p>
         ) : (
           displayBooks.map((book) => (
-            <li key={book.id} className="book-list-item">
+            <div key={book.id} className="book-card">
               <Link to={`/book/${book.id}`}>
                 {book.volumeInfo.imageLinks?.thumbnail && (
                   <img
@@ -56,18 +58,23 @@ const BookList: React.FC<BookListProps> = ({ books, wishlist, toggleWishlistView
                   />
                 )}
               </Link>
+              <hr/>
               <div className="book-info">
                 <h2 className="book-title">
-                  <Link to={`/book/${book.id}`}>{book.volumeInfo.title}</Link>
+
+                  {book.volumeInfo.title}
                 </h2>
-                {book.volumeInfo.averageRating && (
-                  <StarRating rating={book.volumeInfo.averageRating} />
+                {book.volumeInfo.authors && (
+                  <p className="book-author">
+                    {book.volumeInfo.authors.join(', ')}
+                  </p>
                 )}
+                
               </div>
-            </li>
+           </div>
           ))
         )}
-      </ul>
+
     </div>
   );
 };
@@ -141,7 +148,7 @@ const BookDetail: React.FC<BookDetailProps> = ({ books, wishlist, addToWishlist,
             >
               ♥
             </span>
-            <Link to="/" className="back-to-list">Back to Book List</Link>
+            <Link to="/book" className="back-to-list">Back to Book List</Link>
           </div>
         </div>
       </div>

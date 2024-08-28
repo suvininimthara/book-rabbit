@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './RecentBookPage.css';
 import BookCard from '../components/BookCardComponent';
 import { Book } from '../models/bookModel';
+import './RecentBookPage.css';
 
 const BookPage = () => {
     const [books, setBooks] = useState<Book[]>([]);

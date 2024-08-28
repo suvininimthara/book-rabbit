@@ -10,7 +10,7 @@ import AddBook from './components/AddBook';
 import BlogListPage from './pages/BlogList';
 import AddBlogPage from './components/AddBlog';
 import ContactPage from './pages/ContactPage';
-import RecentBooks from './components/home/RecentBookSection';
+import RecentBooks from './pages/RecentBooksPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';

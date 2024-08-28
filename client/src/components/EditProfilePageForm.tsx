@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { User } from '../models/userModel';
+import 'modalStyles.css';
 
 
 interface EditProfilePageFormProps {
@@ -140,8 +141,10 @@ const EditProfilePageForm: React.FC<EditProfilePageFormProps> = ({ user, show, o
                         required
                     />
                 </div>
-                <button type="submit">Save Changes</button>
-                <button type="button" onClick={onHide}>Cancel</button>
+                <div className="d-grid gap-2 d-md-block">
+                <button type="submit" >Save Changes</button>
+                <button type="button" onClick={onHide} >Cancel</button>
+                </div>
             </form>
         </div>
     );
