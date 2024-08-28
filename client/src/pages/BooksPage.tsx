@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { Route, Routes, useLocation } from 'react-router-dom';
 import { BookList, BookDetail } from '../components/BookComponent';
+
 
 interface Book {
   id: string;
@@ -33,7 +34,7 @@ const genres = {
   thriller: 'subject:thriller',
   biography: 'subject:biography',
   travel: 'subject:travel',
-  cooking: 'subject:coooking',
+  cooking: 'subject:cooking',
   technology: 'subject:technology',
   art: 'subject:art',
   religion: 'subject:religion',
@@ -44,7 +45,7 @@ const genres = {
 
 type Genre = keyof typeof genres;
 
-const BooksPage: React.FC = () => {
+const BookPage: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -53,10 +54,14 @@ const BooksPage: React.FC = () => {
   const [wishlistView, setWishlistView] = useState<boolean>(false);
   const [selectedGenre, setSelectedGenre] = useState<Genre>('fiction');
 
+  const apiKey = 'AIzaSyA6Pr3EEcE-T_GUec0FmjwoXGXfliRU6UI';
+
   const fetchBooks = async (query: string) => {
     setLoading(true);
     try {
-      const response = await axios.get<GoogleBooksResponse>(`https://www.googleapis.com/books/v1/volumes?q=${query}`);
+      const response = await axios.get<GoogleBooksResponse>(
+        `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${apiKey}`
+      );
       setBooks(response.data.items || []);
     } catch (error) {
       console.error('Error fetching books:', error);
@@ -135,46 +140,48 @@ const BooksPage: React.FC = () => {
   };
 
   return (
-    <div className="BooksPage">
-      <LocationDisplay />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <BookList
-              books={books}
-              wishlist={wishlist}
-              toggleWishlistView={toggleWishlistView}
-              wishlistView={wishlistView}
+    <div className="App">
+      <div className="main-content">
+        <LocationDisplay />
+        <Routes>
+            <Route
+              path="/"
+              element={
+                <BookList
+                  books={books}
+                  wishlist={wishlist}
+                  toggleWishlistView={toggleWishlistView}
+                  wishlistView={wishlistView}
+                />
+              }
             />
-          }
-        />
-        <Route
-          path="/book/:id"
-          element={
-            <BookDetail
-              books={books}
-              wishlist={wishlist}
-              addToWishlist={addToWishlist}
-              removeFromWishlist={removeFromWishlist}
-              toggleWishlistView={toggleWishlistView}
+            <Route
+              path="/book/:id"
+              element={
+                <BookDetail
+                  books={books}
+                  wishlist={wishlist}
+                  addToWishlist={addToWishlist}
+                  removeFromWishlist={removeFromWishlist}
+                  toggleWishlistView={toggleWishlistView}
+                />
+              }
             />
-          }
-        />
-        <Route
-          path="/wishlist"
-          element={
-            <BookList
-              books={wishlist}
-              wishlist={wishlist}
-              toggleWishlistView={toggleWishlistView}
-              wishlistView={false}
-            />
-          }
-        />
-      </Routes>
-    </div>
+            <Route
+              path="/wishlist"
+              element={
+                <BookList
+                  books={wishlist}
+                  wishlist={wishlist}
+                  toggleWishlistView={toggleWishlistView}
+                  wishlistView={false}
+                  />
+                }
+              />
+            </Routes>
+          </div>
+        </div>
   );
 };
 
-export default BooksPage;
+export default BookPage;

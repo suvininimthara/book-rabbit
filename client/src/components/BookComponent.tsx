@@ -82,6 +82,9 @@ interface BookDetailProps {
 
 const BookDetail: React.FC<BookDetailProps> = ({ books, wishlist, addToWishlist, removeFromWishlist, toggleWishlistView }) => {
   const { id } = useParams<{ id: string }>();
+  console.log('Current Book ID:', id);
+  console.log('Available Books:', books);
+
   const book = books.find((book) => book.id === id);
 
   if (!book) {
@@ -139,7 +142,6 @@ const BookDetail: React.FC<BookDetailProps> = ({ books, wishlist, addToWishlist,
               ♥
             </span>
             <Link to="/" className="back-to-list">Back to Book List</Link>
-
           </div>
         </div>
       </div>
