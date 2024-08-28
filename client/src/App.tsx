@@ -43,13 +43,14 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div>
+      <div id="root">
         <Header
           loggedInUser={loggedInUser}
           onLoginClicked={() => setShowLoginModal(true)}
           onSignUpClicked={() => setShowSignUpModal(true)}
           onLogoutSuccessful={() => setLoggedInUser(null)}
         />
+        <main>
         <Container>
           <Routes>
             <Route path='/' element={<HomePage />} />
@@ -87,6 +88,7 @@ function App() {
             }}
           />
         }
+        </main>
         <Footer />
       </div>
     </BrowserRouter>

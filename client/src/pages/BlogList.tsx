@@ -7,7 +7,7 @@ const BlogPage = () => {
         _id: string;
         title: string;
         content: string;
-        username: string;
+        name: string;
         date: string;
     }
     
@@ -38,7 +38,7 @@ const BlogPage = () => {
                         <h3>{blog.title}</h3>
                         <p>{blog.content}</p>
                         <span className="blog-details">
-                            {blog.username} - {new Date(blog.date).toLocaleDateString()}
+                            {blog.name} - {new Date(blog.date).toLocaleDateString()}
                         </span>
                     </div>
                 ))}

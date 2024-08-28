@@ -1,8 +1,29 @@
 /* Header.css */
-.navbar-custom {
-  background-color: #1bb39e ;
-  font-family: poppins;
+.header {
+  position: fixed; /* Fixed positioning */
+  width: 100%; /* Full width */
+  background-color: #333;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 100px;
+  height: 60px;
+  z-index: 1000;
+ 
 }
+
+.navbar-custom {
+    background-color: #1bb39e; /* Teal background */
+    width: 100%;
+    font-size: medium;
+    position: fixed;
+    top:0;
+    margin-bottom: 100px;
+    z-index: 1000;
+    
+}
+
 
 .navbar-brand-custom {
   color: white;
@@ -78,10 +99,7 @@
   color: white;
   font-size: 24px;
 }
-.header {
-  background-color: #1bb39e; /* Teal background */
-  padding: 1rem;
-}
+
 
 .search-form {
   display: flex;
