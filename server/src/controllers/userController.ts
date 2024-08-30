@@ -148,8 +148,8 @@ export const getUserById = async (req: Request, res: Response) => {
 
   export const updateUser: RequestHandler = async (req, res, next) => {
     // const userId = req.session.userId;
-    const { id, firstName, lastName, phoneNumber, address, favoriteBook, favoriteGenres } = req.body;
-    const userId = id;
+    const { _id, firstName, lastName, phoneNumber, address, favoriteBook, favoriteGenres } = req.body;
+    const userId = _id;
 
     try {
         // if (!userId) {
