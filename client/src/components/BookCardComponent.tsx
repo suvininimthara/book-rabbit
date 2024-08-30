@@ -6,6 +6,7 @@ import './BookCard.css';
 const BookCard: React.FC<Book> = ({ title, imageUrl, author }) => {
   const [inWishlist, setInWishlist] = useState(false);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const toggleWishlist = () => {
     setInWishlist(!inWishlist);
   };

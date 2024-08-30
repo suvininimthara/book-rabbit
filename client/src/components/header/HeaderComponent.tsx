@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { Container, Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
-import { FaSearch} from 'react-icons/fa';
+import React from 'react';
+import { Container, Navbar, Nav } from 'react-bootstrap';
 import './header.css';
 import { User } from '../../models/userModel';
 import HeaderLoggedInView from './HeaderLoggedInView';
