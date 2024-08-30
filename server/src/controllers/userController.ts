@@ -7,9 +7,20 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
 export const getAuthenticatedUser: RequestHandler = async (req, res, next) => {
+    const authenticateUser = req.session.userId;
+
     try {
-        const user = await User.findById(req.session.userId).select("+email").exec();
-        res.status(200).json(user);
+        if (!authenticateUser) {
+            throw createHttpError(401, 'User not authenticated');
+        }
+
+        const user = await User.findById(authenticateUser).exec();
+
+        if (!user) {
+            throw createHttpError(404, 'User not found');
+        }
+
+        res.json(user);
     } catch (error) {
         next(error);
     }
@@ -20,6 +31,7 @@ interface SignUpBody {
     email?: string,
     password?: string,
 }
+
 
 export const signUp: RequestHandler<unknown, unknown, SignUpBody, unknown> = async (req, res, next) => {
     const username = req.body.username;
@@ -92,6 +104,7 @@ export const login: RequestHandler<unknown, unknown, LoginBody, unknown> = async
     }
 };
 
+
 export const logout: RequestHandler = (req, res, next) => {
     req.session.destroy(error => {
         if (error) {
@@ -102,6 +115,16 @@ export const logout: RequestHandler = (req, res, next) => {
     });
 };
 
+
+export const createUser = async (req: Request, res: Response) => {
+    try {
+        const user = new User(req.body);
+        await user.save();
+        res.status(201).json(user);
+    } catch (error: any) {
+        res.status(400).json({ message: error.message });
+    }
+};
 
 export const getAllUsers = async (req: Request, res: Response) => {
     try {
