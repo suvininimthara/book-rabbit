@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, RequestHandler, Response } from 'express';
 import User from '../models/user';
@@ -140,21 +139,20 @@ export const getUserById = async (req: Request, res: Response) => {
       const user = await User.findById(req.params.id);
       if (!user) return res.status(404).json({ message: 'User not found' });
       res.json(user);
-    } catch (error) {
+    } catch (error: any) {
       res.status(500).json({ message: 'Server error' });
     }
   };
   
 
   export const updateUser: RequestHandler = async (req, res, next) => {
-    // const userId = req.session.userId;
-    const { _id, firstName, lastName, phoneNumber, address, favoriteBook, favoriteGenres } = req.body;
-    const userId = _id;
+    const userId = req.session.userId;
+    const { firstName, lastName, phoneNumber, address, favoriteBook, favoriteGenres } = req.body;
 
     try {
-        // if (!userId) {
-        //     throw createHttpError(401, 'User not authenticated');
-        // }
+        if (!userId) {
+            throw createHttpError(401, 'User not authenticated');
+        }
 
         const user = await User.findById(userId).exec();
 
