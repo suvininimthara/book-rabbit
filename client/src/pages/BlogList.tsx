@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 import './BlogPage.css';
 
 const BlogPage = () => {
@@ -16,7 +16,8 @@ const BlogPage = () => {
     useEffect(() => {
         async function fetchBlogs() {
             try {
-                const response = await axios.get('/api/blogs');
+                const response = await api.get('/api/blogs');
+                console.log(response);
                 // Assuming the date field is in ISO format, convert it to Date object for sorting
                 const sortedBlogs = response.data.sort((a: Blog, b: Blog) => 
                     new Date(b.date).getTime() - new Date(a.date).getTime()

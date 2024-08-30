@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 import BookCard from '../components/BookCardComponent';
 import { Book } from '../models/bookModel';
 import './RecentBookPage.css';
@@ -12,7 +12,7 @@ const BookPage = () => {
     useEffect(() => {
         async function fetchBooks() {
             try {
-                const response = await axios.get('/api/books/recent-books');
+                const response = await api.get('/api/books/recent-books');
                 if (response.data) {
                     const sortedBooks = response.data.sort((a: Book, b: Book) => {
                         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();

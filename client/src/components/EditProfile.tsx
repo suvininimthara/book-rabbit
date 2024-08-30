@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import './EditProfilePage.css';
+import api from '../api';
 
 const EditProfile = () => {
     const [profile, setProfile] = useState({
@@ -17,7 +17,7 @@ const EditProfile = () => {
         // Fetch user profile data from API
         const fetchProfile = async () => {
             try {
-                const response = await axios.get('/api/user/profile'); // Replace with your API endpoint
+                const response = await api.get('/api/user/profile'); // Replace with your API endpoint
                 setProfile(response.data);
             } catch (error) {
                 console.error('Failed to fetch profile:', error);
@@ -35,7 +35,7 @@ const EditProfile = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            await axios.put('/api/user/profile', profile); // Replace with your API endpoint
+            await api.put('/api/user/profile', profile); // Replace with your API endpoint
             alert('Profile updated successfully!');
         } catch (error) {
             console.error('Failed to update profile:', error);

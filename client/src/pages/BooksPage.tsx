@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import { BookList, BookDetail } from '../components/BookComponent';
 import './BooksPage.css';
 
@@ -60,7 +60,7 @@ const BookPage: React.FC = () => {
   const fetchBooks = async (query: string) => {
     setLoading(true);
     try {
-      const response = await axios.get<GoogleBooksResponse>(
+      const response = await api.get<GoogleBooksResponse>(
         `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${apiKey}`
       );
       setBooks(response.data.items || []);

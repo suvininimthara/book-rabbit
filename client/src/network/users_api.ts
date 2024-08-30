@@ -1,6 +1,6 @@
-import axios from "axios";
 import { User } from "../models/userModel";
 import { ConflictError, UnauthorizedError } from "../errors/http_errors";
+import api from "../api";
 
 async function fetchData(input: RequestInfo, init?: RequestInit) {
     const response = await fetch(input, init);
@@ -118,7 +118,7 @@ export async function updateUser(userId: string, user: UserUpdate): Promise<User
 }
 
 export const getUserProfile = async () => {
-    const response = await axios.get('/api/users'); 
+    const response = await api.get('/api/users'); 
     return response.data;
 };
 
@@ -127,12 +127,12 @@ export async function deleteUser(userId: string) {
 }
 
 export const getUserById = async (userId: string) => {
-    const response = await axios.get(`/api/users/${userId}`);
+    const response = await api.get(`/api/users/${userId}`);
     return response.data;
 }
 
 export const updateUserProfile = async (userId: string, updatedData: Partial<User>) => {
-    const response = await axios.patch(`/api/users/${userId}`, updatedData);
+    const response = await api.patch(`/api/users/${userId}`, updatedData);
     return response.data;
 };
 

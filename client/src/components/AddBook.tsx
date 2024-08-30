@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './AddBook.css';
+import api from '../api';
 
 const AddBookForm = () => {
     const [title, setTitle] = useState('');
@@ -34,7 +35,7 @@ const AddBookForm = () => {
         };
 
         try {
-            await axios.post('/api/books', newBook);
+            await api.post('/api/books', newBook);
             setMessage('Book added successfully!');
             setMessageType('success');
             // Reset form fields

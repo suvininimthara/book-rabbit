@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import './AddBlog.css';
+import api from '../api';
 
 const AddBlogForm = () => {
     const [title, setTitle] = useState('');
@@ -27,7 +27,7 @@ const AddBlogForm = () => {
         };
 
         try {
-            await axios.post('/api/blogs', newBlog);
+            await api.post('/api/blogs', newBlog);
             setMessage('Blog added successfully!');
             setMessageType('success');
             // Reset form fields
