@@ -151,9 +151,9 @@ export const getUserById = async (req: Request, res: Response) => {
     const { firstName, lastName, phoneNumber, address, favoriteBook, favoriteGenres } = req.body;
 
     try {
-        if (!userId) {
-            throw createHttpError(401, 'User not authenticated');
-        }
+        // if (!userId) {
+        //     throw createHttpError(401, 'User not authenticated');
+        // }
 
         const user = await User.findById(userId).exec();
 
