@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { User } from '../../models/userModel';
 import '../../components/AddBook.css';
+import api from '../../api';
 
 interface EditProfilePageProps {
     user: User;
@@ -41,7 +42,7 @@ const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, onSave }) => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const response = await axios.put(`/api/users/${user._id}`, profile);
+            const response = await api.put(`/api/users/${user._id}`, profile);
             onSave(response.data);
             alert('Profile updated successfully!');
         } catch (error) {

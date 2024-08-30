@@ -10,4 +10,6 @@ export interface User {
     address?: string;
     favoriteBook?: string;
     favoriteGenres?: string[];
+    status?: number;
+    message?: string;
 }

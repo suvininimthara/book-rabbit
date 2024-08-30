@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Form, Button, Card } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { User } from '../../models/userModel';
 import * as UsersApi from '../../network/users_api';
 import ProfileModal from '../../components/ProfileModal'; // Adjust the import path as needed
@@ -11,11 +11,13 @@ const ProfilePage: React.FC = () => {
     const [user, setUser] = useState<User>({} as User);
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
+    const { userId } = useParams<{ userId: string }>();
+    const id = userId ?? '';
 
     useEffect(() => {
         async function fetchUser() {
             try {
-                const response = await UsersApi.getUserProfile();
+                const response = await UsersApi.getUserById(id);
                 console.log('User profile:', response);
                 setUser(response);
             } catch (error) {
@@ -28,6 +30,8 @@ const ProfilePage: React.FC = () => {
     }, []);
 
     const handleEditProfile = (updatedUser: User) => {
+        console.log('userId:', updatedUser);
+        
         setUser(updatedUser);
     };
 

@@ -30,15 +30,12 @@ export interface SignUpCredentials {
 }
 
 export async function signUp(credentials: SignUpCredentials): Promise<User> {
-    const response = await fetchData("/api/users/signup",
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(credentials),
-        });
-    return response.json();
+    const response = await api.post('/api/users/signup', credentials, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    return response.data;
 }
 
 export interface LoginCredentials {
@@ -47,15 +44,12 @@ export interface LoginCredentials {
 }
 
 export async function login(credentials: LoginCredentials): Promise<User> {
-    const response = await fetchData("/api/users/login",
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(credentials),
-        });
-    return response.json();
+    const response = await api.post('/api/users/login', credentials, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    return response.data;
 }
 
 export async function logout() {
@@ -107,14 +101,13 @@ export async function updateProfile(userId: string, user: UserUpdate): Promise<U
 }
 
 export async function updateUser(userId: string, user: UserUpdate): Promise<User> {
-    const response = await fetchData(`/api/users/${userId}`, {
-        method: "PATCH",
+    const response = await api.patch(`/api/users/${userId}`, user, {
         headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
         },
-        body: JSON.stringify(user),
     });
-    return response.json();
+    
+    return response.data;
 }
 
 export const getUserProfile = async () => {
