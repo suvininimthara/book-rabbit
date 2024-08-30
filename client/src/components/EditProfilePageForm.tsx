@@ -55,7 +55,7 @@ const EditProfilePageForm: React.FC<EditProfilePageFormProps> = ({ user, show, o
 
         try {
             await fetch(`/api/users/${user!._id}`, {
-                method: 'PATCH',
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
