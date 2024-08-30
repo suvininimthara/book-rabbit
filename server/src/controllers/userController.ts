@@ -147,8 +147,8 @@ export const getUserById = async (req: Request, res: Response) => {
   
 
   export const updateUser: RequestHandler = async (req, res, next) => {
-    const userId = req.session.userId;
-    const { firstName, lastName, phoneNumber, address, favoriteBook, favoriteGenres } = req.body;
+    // const userId = req.session.userId;
+    const { userId, firstName, lastName, phoneNumber, address, favoriteBook, favoriteGenres } = req.body;
 
     try {
         // if (!userId) {
