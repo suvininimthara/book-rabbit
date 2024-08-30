@@ -36,7 +36,9 @@ app.use(session({
 
 
 // Middleware to enable CORS
-app.use(cors());
+app.use(cors({
+    origin: '*'
+}));
 
 // Routes
 app.use('/api/books', bookRoutes);
