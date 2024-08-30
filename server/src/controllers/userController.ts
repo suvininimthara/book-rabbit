@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, RequestHandler, Response } from 'express';
 import User from '../models/user';
@@ -139,7 +140,7 @@ export const getUserById = async (req: Request, res: Response) => {
       const user = await User.findById(req.params.id);
       if (!user) return res.status(404).json({ message: 'User not found' });
       res.json(user);
-    } catch (error: any) {
+    } catch (error) {
       res.status(500).json({ message: 'Server error' });
     }
   };
