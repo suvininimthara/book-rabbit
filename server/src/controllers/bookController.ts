@@ -18,7 +18,7 @@ export const getAllBooks = async (req: Request, res: Response) => {
         const books = await Book.find();
         res.json(books);
     } catch (error: any) {
-        res.status(500).json('Failed');
+        res.status(500).json({ message: error.message });
     }
 };
 
