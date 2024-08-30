@@ -147,13 +147,10 @@ export const getUserById = async (req: Request, res: Response) => {
   
 
   export const updateUser: RequestHandler = async (req, res, next) => {
-    const userId = req.session.userId;
-    const { firstName, lastName, phoneNumber, address, favoriteBook, favoriteGenres } = req.body;
-
+    //const userId = req.session.userId;
+    const { _id, firstName, lastName, phoneNumber, address, favoriteBook, favoriteGenres } = req.body;
+    const userId = _id;
     try {
-        if (!userId) {
-            throw createHttpError(401, 'User not authenticated');
-        }
 
         const user = await User.findById(userId).exec();
 
