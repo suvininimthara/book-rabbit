@@ -35,7 +35,7 @@ const EditProfile = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            await api.put('/api/user/profile', profile); // Replace with your API endpoint
+            await api.put('/api/user/profile', profile); 
             alert('Profile updated successfully!');
         } catch (error) {
             console.error('Failed to update profile:', error);
