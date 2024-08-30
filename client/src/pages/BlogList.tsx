@@ -18,7 +18,6 @@ const BlogPage = () => {
             try {
                 const response = await api.get('/api/blogs');
                 console.log(response);
-                // Assuming the date field is in ISO format, convert it to Date object for sorting
                 const sortedBlogs = response.data.sort((a: Blog, b: Blog) => 
                     new Date(b.date).getTime() - new Date(a.date).getTime()
                 );

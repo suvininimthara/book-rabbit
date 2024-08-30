@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
-import axios from 'axios';
+import api from '../../api';
 import BookCard from '../BookCardComponent';
 import { Book } from '../../models/bookModel';
 import './RecentBook.css';
@@ -14,7 +14,7 @@ const RecentBooks = () => {
     useEffect(() => {
         async function fetchRecentBooks() {
             try {
-                const response = await axios.get('/api/books/recent');
+                const response = await api.get('/api/books/recent');
                 setBooks(response.data);
             } catch (error) {
                 console.error('Failed to fetch recent books:', error);

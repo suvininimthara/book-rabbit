@@ -73,9 +73,5 @@ mongoose.connect(process.env.MONGO_CONNECTION_STRING as string)
         console.log("Error connecting to MongoDB", error);
     });
 
-// Fallback route for 404
-app.use((req: Request, res: Response) => {
-    res.status(404).json({ message: "Route not found" });
-});
 
 export default app;

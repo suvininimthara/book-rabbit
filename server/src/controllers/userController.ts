@@ -6,26 +6,6 @@ import createHttpError from 'http-errors';
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
-export const getAuthenticatedUser: RequestHandler = async (req, res, next) => {
-    const authenticateUser = req.session.userId;
-
-    try {
-        if (!authenticateUser) {
-            throw createHttpError(401, 'User not authenticated');
-        }
-
-        const user = await User.findById(authenticateUser).exec();
-
-        if (!user) {
-            throw createHttpError(404, 'User not found');
-        }
-
-        res.json(user);
-    } catch (error) {
-        next(error);
-    }
-};
-
 interface SignUpBody {
     username?: string,
     email?: string,

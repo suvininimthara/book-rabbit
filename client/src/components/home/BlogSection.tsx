@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
-import axios from 'axios';
+import api from '../../api';
 import './BlogSection.css';
 
 const BlogSection = () => {
@@ -20,7 +20,7 @@ const BlogSection = () => {
     useEffect(() => {
         async function fetchBlogs() {
             try {
-                const response = await axios.get('/api/blogs/recent');
+                const response = await api.get('/api/blogs/recent');
                 setBlogs(response.data);
             } catch (error) {
                 console.error('Failed to fetch blogs:', error);
