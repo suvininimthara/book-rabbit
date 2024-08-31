@@ -38,7 +38,7 @@ app.use(session({
 
 // Middleware to enable CORS
 app.use(cors({
-    origin: '*',
+    origin: '/https://book-rabbit.vercel.app/',
     credentials: true,
 }));
 

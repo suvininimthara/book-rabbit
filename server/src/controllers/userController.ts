@@ -113,7 +113,6 @@ export const logout: RequestHandler = (req, res, next) => {
     });
 };
 
-
 export const createUser = async (req: Request, res: Response) => {
     try {
         const user = new User(req.body);
