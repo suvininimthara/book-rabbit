@@ -26,18 +26,20 @@ app.use(session({
     cookie: {
         maxAge: 60 * 60 * 1000, // 1 hour
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production' // Use secure cookies in production
+        secure: process.env.NODE_ENV === 'production',
     },
     rolling: true,
     store: MongoStore.create({
-        mongoUrl: env.MONGO_CONNECTION_STRING
+        mongoUrl: env.MONGO_CONNECTION_STRING,
+        collectionName: 'sessions'
     }),
 }));
 
 
 // Middleware to enable CORS
 app.use(cors({
-    origin: '*'
+    origin: '*',
+    credentials: true,
 }));
 
 // Routes
