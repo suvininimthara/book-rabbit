@@ -39,7 +39,6 @@ app.use(session({
 // Middleware to enable CORS
 app.use(cors({
     origin: '*',
-    credentials: true,
 }));
 
 // Routes
