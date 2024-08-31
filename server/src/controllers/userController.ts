@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, RequestHandler, Response } from 'express';
+import IUser from '../models/user';
 import User from '../models/user';
 import createHttpError from 'http-errors';
 import mongoose from 'mongoose';
@@ -63,7 +64,7 @@ export const signUp: RequestHandler<unknown, unknown, SignUpBody, unknown> = asy
             password: passwordHashed,
         });
 
-        req.session.userId = newUser._id as mongoose.Types.ObjectId;
+        req.session.userId = newUser._id.toString();
 
         res.status(201).json(newUser);
     } catch (error) {
@@ -72,38 +73,35 @@ export const signUp: RequestHandler<unknown, unknown, SignUpBody, unknown> = asy
 };
 
 interface LoginBody {
-    username?: string,
-    password?: string,
+    username?: string;
+    password?: string;
 }
 
 export const login: RequestHandler<unknown, unknown, LoginBody, unknown> = async (req, res, next) => {
-    const username = req.body.username;
-    const password = req.body.password;
+    const { username, password } = req.body;
 
     try {
         if (!username || !password) {
             throw createHttpError(400, "Parameters missing");
         }
 
-        const user = await User.findOne({ username: username }).select("+password +email").exec();
+        // Find the user by username and include the password field
+        const user: IUser | null = await User.findOne({ username }).select("+password").exec();
 
-        if (!user) {
+        // Check if the user exists and the password matches
+        if (!user || !(await bcrypt.compare(password, user.password))) {
             throw createHttpError(401, "Invalid credentials");
         }
 
-        const passwordMatch = await bcrypt.compare(password, user.password);
+        // Assign the user ID to the session
+        req.session.userId = user._id.toString();
 
-        if (!passwordMatch) {
-            throw createHttpError(401, "Invalid credentials");
-        }
-
-        req.session.userId = user._id as mongoose.Types.ObjectId;
+        // Respond with the user data
         res.status(201).json(user);
     } catch (error) {
         next(error);
     }
 };
-
 
 export const logout: RequestHandler = (req, res, next) => {
     req.session.destroy(error => {

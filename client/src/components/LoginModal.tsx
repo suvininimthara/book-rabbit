@@ -26,7 +26,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, onLoginSuccessful, o
       if (error instanceof UnauthorizedError) {
         setErrorText(error.message);
       } else if (error instanceof Error) {
-        setErrorText("An unexpected error occurred. Please try again.");
+        setErrorText(error.message);
       } else {
         alert(error);
       }

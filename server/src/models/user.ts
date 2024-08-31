@@ -1,9 +1,10 @@
 import { Schema, model, Document, InferSchemaType } from 'mongoose';
 
 interface IUser extends Document {
+    _id: Schema.Types.ObjectId;
     username: string;
     email: string;
-    password: string; 
+    password: string;
     firstName: string;
     lastName: string;
     birthday: Date;
@@ -33,6 +34,10 @@ const userSchema = new Schema<IUser>({
     ]
 }, { timestamps: true });
 
+// Infer the type of User from the schema using InferSchemaType
 type User = InferSchemaType<typeof userSchema>;
+
+// Create the User model using the IUser interface
 const User = model<IUser>('User', userSchema);
+
 export default User;
