@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { User } from "../models/userModel";
-import { LoginCredentials } from "../network/users_api";
 import * as UsersApi from "../network/users_api";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
 import TextInputField from "./form/TextInputField";
 import { UnauthorizedError } from "../errors/http_errors";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './modalStyles.css';
+
 interface LoginModalProps {
   onDismiss: () => void;
   onLoginSuccessful: (user: User) => void;
@@ -16,15 +16,17 @@ interface LoginModalProps {
 
 const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, onLoginSuccessful, onSignUpClick }) => {
   const [errorText, setErrorText] = useState<string | null>(null);
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginCredentials>();
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<UsersApi.LoginCredentials>();
 
-  async function onSubmit(credentials: LoginCredentials) {
+  async function onSubmit(credentials: UsersApi.LoginCredentials) {
     try {
       const user = await UsersApi.login(credentials);
       onLoginSuccessful(user);
-    } catch (error) {
+    } catch (error: any) {
       if (error instanceof UnauthorizedError) {
         setErrorText(error.message);
+      } else if (error instanceof Error) {
+        setErrorText("An unexpected error occurred. Please try again.");
       } else {
         alert(error);
       }
@@ -34,18 +36,13 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, onLoginSuccessful, o
 
   return (
     <Modal show onHide={onDismiss} centered>
-    <Modal.Body>
+      <Modal.Body>
         <div className="text-center">
-
-        <img src="/logo.png" alt="logo" className="modal-logo"/>
-        <p></p>
-        <h6 className='h4'>Login</h6>
+          <img src="/logo.png" alt="logo" className="modal-logo" />
+          <p></p>
+          <h6 className='h4'>Login</h6>
         </div>
-        {errorText &&
-          <Alert variant="danger">
-            {errorText}
-          </Alert>
-        }
+        {errorText && <Alert variant="danger">{errorText}</Alert>}
         <Form onSubmit={handleSubmit(onSubmit)}>
           <TextInputField
             name="username"
@@ -54,7 +51,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, onLoginSuccessful, o
             placeholder="Username"
             register={register}
             registerOptions={{ required: "Required" }}
-            error={errors.username}
+            errors={errors.username}
           />
           <TextInputField
             name="password"
@@ -63,25 +60,24 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, onLoginSuccessful, o
             placeholder="Password"
             register={register}
             registerOptions={{ required: "Required" }}
-            error={errors.password}
+            errors={errors.password}
           />
-            <div className="text-center">
-          <Button
-            type="submit"
-            disabled={isSubmitting}
-            className="varient"
-            style={{backgroundColor: '#00b3b3', color: 'white', alignSelf: 'center', width: '100%'}}
-          >
-            Login
-          </Button >
-            </div>
+          <div className="text-center">
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="varient"
+              style={{ backgroundColor: '#00b3b3', color: 'white', alignSelf: 'center', width: '100%' }}
+            >
+              Login
+            </Button>
+          </div>
         </Form>
         <p> </p>
         <div className="text-center mt-3">
-          <p>Don't have an account? <br/>
-            
-          <Button type="button" className="btn btn-link" onClick={onSignUpClick}>Sign up</Button>
-            </p>
+          <p>Don't have an account? <br />
+            <Button type="button" className="btn btn-link" onClick={onSignUpClick}>Sign up</Button>
+          </p>
         </div>
       </Modal.Body>
     </Modal>
